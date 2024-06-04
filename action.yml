@@ -2,8 +2,10 @@ name: APIContract Scan
 description: version, release, governanace, contract, performance, tests and privacy
 author: PerfAI, Inc.
 branding:
-  icon: trending-up
-  color: red
+  icon: "package"
+  color: "gray-dark"
+ # icon: trending-up
+ # color: red
       
 inputs:
   apiSpecURL:
