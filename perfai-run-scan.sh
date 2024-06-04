@@ -13,7 +13,7 @@ TEMP=$(getopt -n "$0" -a -l "username:,password:,apiSpecURL:,apiBasePath:,authUr
              case "$1" in
                     --username) PERFAI_USER="$2"; shift;;
                     --password) PERFAI_PWD="$2"; shift;;
-                    --apiSpecURL) APISPEC_URL="$2"; shift;;
+                    --apiSpecURL) API_SPEC_URL="$2"; shift;;
                     --authBody) AUTH_BODY="$2"; shift;;
                     --authUrl) AUTH_URL="$2"; shift;;
                     --authHeaders) AUTH_HEADERS="$2"; shift;;
