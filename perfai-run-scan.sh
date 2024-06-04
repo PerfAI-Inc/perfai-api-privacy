@@ -26,14 +26,14 @@ TEMP=$(getopt -n "$0" -a -l "username:,password:,apiSpecURL:,apiBasePath:,authUr
     done
 
 # # Set defaults for configurable options
-BASE_URL=${BASE_URL:-"https://dev.perfai.ai"}
+BASE_URL=${BASE_URL:-"https://app.apicontract.dev"}
 AUTH0_URL=${AUTH0_URL:-"https://dev-y3450b42cwy8vyl1.us.auth0.com"}
-REGISTER_URL=${REGISTER_URL:-"https://dev.perfai.ai/apis/register"}
+REGISTER_URL=${REGISTER_URL:-"https://app.apicontract.dev/apis/register"}
 
 
 if [ "$BASE_URL" = "" ]
 then
-   BASE_URL="https://dev.perfai.ai"
+   BASE_URL="https://app.apicontract.dev"
 fi    
 
 echo " "
@@ -41,5 +41,6 @@ token=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'"
 echo "generated token is:" "$token"
 echo " "
 
-DATA=$(curl -k -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.dev.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $token" -d  '{"base_url":"'"${BASE_URL}"'","auth0_url":"'"${AUTH0_URL}"'","register_url":"'"${REGISTER_URL}"'","openapi_spec":"'"${OPENAPI_SPEC}"'","base_path":"'"${BASEPATH_SPEC}"'","label":"'"${LABEL}"'","governance_email":"'"${GOVERNANCE_EMAIL}"'"}' | jq -r .token)
-echo "$DATA"
+#DATA=$(curl -k -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.dev.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $token" -d  '{"base_url":"'"${BASE_URL}"'","auth0_url":"'"${AUTH0_URL}"'","register_url":"'"${REGISTER_URL}"'","openapi_spec":"'"${OPENAPI_SPEC}"'","base_path":"'"${BASEPATH_SPEC}"'","label":"'"${LABEL}"'","governance_email":"'"${GOVERNANCE_EMAIL}"'"}' | jq -r .token)
+curl -k -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $token" -d  '{"apiSpecURL":"'"${API_SPEC_URL}"'","authUrl":"'"${AUTH_URL}"'","authBody":"'"${AUTH_BODY}"'","authHeaders":"'"${AUTH_HEADERS}"'","licenseKey":"'"${LICENSE_KEY}"'","label":"'"${LABEL}"'","email_reports":"'"${EMAIL_REPORTS}"'"}'
+
