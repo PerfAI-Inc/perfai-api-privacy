@@ -1,7 +1,7 @@
 #!/bin/bash
 # Begin
 
-TEMP=$(getopt -n "$0" -a -l "apiSpecURL:,apiBasePath:,authUrl:,authBody:,authHeaders:,licenseKey:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "apiSpecURL:,apiBasePath:,authUrl:,authBody:,authHeaders:,licenseKey:,governance_email" -- -- "$@")
 # TEMP=$(getopt -n "$0" -a -l "base_url:,auth0_url:,register_url:,username:,password:,openapi_spec:,base_path:,label:,governance_email:" -- -- "$@")
 
     [ $? -eq 0 ] || exit
@@ -11,13 +11,13 @@ TEMP=$(getopt -n "$0" -a -l "apiSpecURL:,apiBasePath:,authUrl:,authBody:,authHea
     while [ $# -gt 0 ]
     do
              case "$1" in
-                    --base_url) BASE_URL="$2"; shift;;
-                    --auth0_url) AUTH0_URL="$2"; shift;;
-                    --register_url) REGISTER_URL="$2"; shift;;
                     --username) PERFAI_USER="$2"; shift;;
                     --password) PERFAI_PWD="$2"; shift;;
-                    --openapi_spec) OPENAPI_SPEC="$2"; shift;;
-                    --base_path) BASEPATH_SPEC="$2"; shift;;
+                    --apiSpecURL) OPENAPI_SPEC="$2"; shift;;
+                    --authBody) BASE_URL="$2"; shift;;
+                    --authUrl) AUTH0_URL="$2"; shift;;
+                    --authHeaders) REGISTER_URL="$2"; shift;;
+                    --licenseKey) BASEPATH_SPEC="$2"; shift;;
                     --label) LABEL="$2"; shift;;
                     --governance_email) GOVERNANCE_EMAIL="$2"; shift;;
                     --) shift ;;
