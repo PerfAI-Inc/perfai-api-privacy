@@ -31,5 +31,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: docker run --rm -e apiSpecURL=${{ inputs.apiSpecURL }} -e apiBasePath=${{ inputs.apiBasePath }} -e authUrl=${{ inputs.authUrl }} -e authBody=${{ inputs.authBody }} -e authHeaders=${{ inputs.authHeaders }} -e licenseKey=${{ inputs.licenseKey }} -v ${{ github.workspace }}/.github:/app/.github ghcr.io/perfai-inc/perfai-engine:main
+    - run: ${GITHUB_ACTION_PATH}/perfai-run-scan.sh --username "${{inputs.apisec-username}}" --password "${{ inputs.apisec-password }}" --apiSpecURL "${{ inputs.apisec-apiSpecURL }}" --authUrl "${{ inputs.apisec-authUrl }}" --authBody "${{ inputs.apisec-authBody }}" --authHeaders  "${{ inputs.authHeaders}}" --licenseKey "${{ inputs.licenseKey }}" --governance_email "${{ inputs.governance_email }}"
+    # - run: docker run --rm -e apiSpecURL=${{ inputs.apiSpecURL }} -e apiBasePath=${{ inputs.apiBasePath }} -e authUrl=${{ inputs.authUrl }} -e authBody=${{ inputs.authBody }} -e authHeaders=${{ inputs.authHeaders }} -e licenseKey=${{ inputs.licenseKey }} -v ${{ github.workspace }}/.github:/app/.github ghcr.io/perfai-inc/perfai-engine:main
       shell: bash
