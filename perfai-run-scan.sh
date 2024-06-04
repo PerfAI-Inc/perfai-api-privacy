@@ -37,7 +37,7 @@ then
 fi    
 
 echo " "
-token=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'"${PERFAI_USER}"'", "password": "'"${PERFAI_PWD}"'"}' "${AUTH0_URL}"/login | jq -r .token)
+token=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'"${PERFAI_USER}"'", "password": "'"${PERFAI_PWD}"'"}' "${AUTH_URL}"/login | jq -r .token)
 echo "generated token is:" "$token"
 echo " "
 
