@@ -1,4 +1,4 @@
-name: APIContract Scan
+name: GitHub Action for APIContract
 description: version, release, governanace, contract, performance, tests and privacy
 author: PerfAI, Inc.
 branding:
