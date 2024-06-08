@@ -2,7 +2,7 @@
 # Begin
 
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,name:,source:,url:,client_id:,client_secret:,audience:,grant_type:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,name:,source:,url:,client_id:,client_secret:,audience:,grant_type:,access_token:" -- -- "$@")
 # TEMP=$(getopt -n "$0" -a -l "username:,password:,apiSpecURL:,apiBasePath:,authUrl:,authBody:,authHeaders:,licenseKey:,label:,governance_email:" -- -- "$@")
 # TEMP=$(getopt -n "$0" -a -l "base_url:,auth0_url:,register_url:,username:,password:,openapi_spec:,base_path:,label:,governance_email:" -- -- "$@")
 
@@ -25,7 +25,8 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governa
                     --client_id) CLIENT_ID="$2"; shift;;
                     --client_secret) CLIENT_SECRET="$2"; shift;;
                     --audience) AUDIENCE="$2"; shift;;
-                    --grant_type) GRANT_TYPE="$2"; shift;;                    
+                    --grant_type) GRANT_TYPE="$2"; shift;;  
+                    --access_token) ACCESS_TOKEN="$2"; shift;; 
                     # --authBody) AUTH_BODY="$2"; shift;;
                     # --authUrl) AUTH_URL="$2"; shift;;
                     # --authHeaders) AUTH_HEADERS="$2"; shift;;
@@ -47,6 +48,10 @@ if [ "$PERFAI_HOSTNAME" = "" ];
 then
 PERFAI_HOSTNAME="https://api.perfai.ai"
 fi
+
+# echo " "
+# token=$(curl -s -H "Content-Type: application/json" -X POST -d '{"client_id": "'"${CLIENT_ID}"'", "client_secret": "'"${CLIENT_SECRET}"'"}' "${AUTH0_URL}"/login)
+# echo "generated token is:" "$token"
 
 echo " "
 token=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'"${PERFAI_USER}"'", "password": "'"${PERFAI_PWD}"'"}' "${PERFAI_HOSTNAME}"/login)
