@@ -29,7 +29,7 @@ inputs:
   source:
     description: API Base Path
     required: true
-  version:
+  version: 0.0.1
     description: Token Authentication URL
     required: true
   client_id: ${{ secrets.CLIENT_ID }}
