@@ -1,4 +1,4 @@
-name: GitHub Action for APIContract
+name: GitHub Action for API Registry
 description: version, release, governanace, contract, performance, tests and privacy
 author: PerfAI, Inc.
 branding:
@@ -9,19 +9,19 @@ branding:
       
 inputs:
   perfai-hostname:
-    description: 'Username of API-Contract'
+    description: 'Hostname of API-Privacy'
     required: true
   perfai-username:
-    description: 'Username of API-Contract'
+    description: 'Username of API-Privacy'
     required: true
   perfai-password:
-    description: 'Password of API-Contract'
+    description: 'Password of API-Privacy'
     required: true
   openapi_spec:
-    description: 'Password of API-Contract'
+    description: 'URL of API-Privacy'
     required: true
   governance_email:
-    description: 'Password of API-Contract'
+    description: 'email of API-Privacy'
     required: true   
   name:
     description: OpenAPI-Specification/Swagger URL
@@ -32,20 +32,11 @@ inputs:
   version:
     description: Token Authentication URL
     required: true
-  url:
-    description: Authentication Body JSON/Data
-    required: true
   client_id:
     description: Authentication Headers
   client_secret:
     description: A code or token that allows the user to identify him/herself as a legal customer 
-    required: false
-  audience:
-    description: 'Email id that send report' 
-    required: false
-  grant_type:
-    description: 'Email id that send report' 
-    required: false
+    required: false    
     
 outputs:
   report:
@@ -54,11 +45,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: ${GITHUB_ACTION_PATH}/perfai-run-scan.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}" --url "${{ inputs.url }}" --client_secret "${{ inputs.client_secret }}" --client_id "${{ inputs.client_id }}" --audience "${{ inputs.audience }}" --grant_type "${{ inputs.grant_type }}"
-    # - run: ${GITHUB_ACTION_PATH}/perfai-run-scan.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --apiSpecURL "${{ inputs.perfai-apiSpecURL }}" --authUrl "${{ inputs.perfai-authUrl }}" --authBody "${{ inputs.perfai-authBody }}" --authHeaders  "${{ inputs.perfai-authHeaders}}" --licenseKey "${{ inputs.perfai-licenseKey }}" --governance_email "${{ inputs.perfai-governance_email }}"
-    # - run: docker run --rm -e apiSpecURL=${{ inputs.apiSpecURL }} -e apiBasePath=${{ inputs.apiBasePath }} -e authUrl=${{ inputs.authUrl }} -e authBody=${{ inputs.authBody }} -e authHeaders=${{ inputs.authHeaders }} -e licenseKey=${{ inputs.licenseKey }} -v ${{ github.workspace }}/.github:/app/.github ghcr.io/perfai-inc/perfai-engine:main
+    - run: ${GITHUB_ACTION_PATH}/m2m.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}" --client_secret "${{ inputs.client_secret }}" --client_id "${{ inputs.client_id }}"
       shell: bash
-      env:
-        ACCESS_TOKEN: ${{ secrets.AccessToken }}
-      run: |
-        example-command "$ACCESS_TOKEN"
+      # env:
+      #   ACCESS_TOKEN: ${{ secrets.AccessToken }}
+      # run: |
+      #   example-command "$ACCESS_TOKEN"
