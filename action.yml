@@ -46,8 +46,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: ${GITHUB_ACTION_PATH}/m2m.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}" --client_secret "${{ inputs.client_secret }}" --client_id "${{ inputs.client_id }}"
-      shell: bash
+    - name: Github Action
+      run: ${GITHUB_ACTION_PATH}/m2m.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}" --client_secret "${{ inputs.CLIENT_SECRET }}" --client_id "${{ inputs.CLIENT_ID }}"
+      shell: bash 
       env:
-        client_id: ${{ secrets.CLIENT_ID }}
-        client_secret: ${{ secrets.CLIENT_SECRET }}
+        CLIENT_ID: ${{ secrets.client_id }}
+        CLIENT_SECRET: ${{ secrets.client_secret }}
