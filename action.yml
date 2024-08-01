@@ -32,11 +32,10 @@ inputs:
   version:
     description: Token Authentication URL
     required: true
-  client_id:
+  client_id: ${{ secrets.CLIENT_ID }}
     description: Authentication Headers
-  client_secret:
-    description: A code or token that allows the user to identify him/herself as a legal customer 
-    required: false    
+  client_secret: ${{ secrets.CLIENT_SECRET }}
+    description: A code or token that allows the user to identify him/herself as a legal customer    
     
 outputs:
   report:
