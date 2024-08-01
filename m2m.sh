@@ -52,4 +52,4 @@ echo " "
 
 API_REGISTRY_RESPONSE=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "$API_ENDPOINT/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $ACCESS_TOKEN" -d "{\"openapi_spec\":\"${OPENAPI_SPEC}\",\"source\":\"${SOURCE}\",\"version\":\"${VERSION}\",\"name\":\"${NAME}\",\"governance_email\":\"${GOVERNANCE_EMAIL}\"}")
 
-echo "API Registry Response: $API_REGISTRY_RESPONSE"
+echo "API Registry Successfully: $API_REGISTRY_RESPONSE"
