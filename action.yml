@@ -24,7 +24,7 @@ inputs:
     description: 'email of API-Privacy'
     required: true   
   name:
-    description: OpenAPI-Specification/Swagger URL
+    description: 'OpenAPI-Specification/Swagger URL'
     required: true
   source:
     description: API Base Path
@@ -33,9 +33,11 @@ inputs:
     description: Token Authentication URL
     required: true
   client_id:
-    description: Authentication Headers
+    description: 'The Client ID'
+    required: true
   client_secret:
-    description: A code or token that allows the user to identify him/herself as a legal customer    
+    description: 'The Client Secret'
+    required: true  
     
 outputs:
   report:
@@ -46,7 +48,6 @@ runs:
   steps:
     - run: ${GITHUB_ACTION_PATH}/m2m.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}" --client_secret "${{ inputs.client_secret }}" --client_id "${{ inputs.client_id }}"
       shell: bash
-      # env:
-      #   ACCESS_TOKEN: ${{ secrets.AccessToken }}
-      # run: |
-      #   example-command "$ACCESS_TOKEN"
+      env:
+        CLIENT_ID: ${{ secrets.client_id }}
+        CLIENT_SECRET: ${{ secrets.client_secret }}
