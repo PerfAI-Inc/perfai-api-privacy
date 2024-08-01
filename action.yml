@@ -27,10 +27,10 @@ inputs:
     description: 'OpenAPI-Specification/Swagger URL'
     required: true
   source:
-    description: API Base Path
+    description: 'API Base Path'
     required: true
   version:
-    description: Token Authentication URL
+    description: 'Token Authentication URL'
     required: true
   client_id:
     description: 'The Client ID'
