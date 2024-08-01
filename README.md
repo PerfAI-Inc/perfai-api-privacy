@@ -1,11 +1,4 @@
-# API-Contract
+# API-Privacy
 
 contract, release, version, governanace, tests, performance, privacy
 
-How Apisec works:
-
-Getting Started:
-
-Inputs:
-
-Example usage:
