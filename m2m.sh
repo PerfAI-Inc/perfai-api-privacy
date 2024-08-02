@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,api_endpoint:,openapi_spec:,governance_email:,version:,name:,source:,client_id:,client_secret:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,api_endpoint:,openapi_spec:,governance_email:,version:,name:,source:" -- -- "$@")
 
      [ $? -eq 0 ] || exit
 
@@ -18,8 +18,6 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,api_endpoint:,openapi
                --name) NAME="$2"; shift;;
                --source) SOURCE="$2"; shift;;
                --version) VERSION="$2"; shift;;
-               --client_id) CLIENT_ID="$2"; shift;;
-               --client_secret) CLIENT_SECRET="$2"; shift;;
                --) shift ;;
           esac
           shift;
@@ -33,17 +31,12 @@ fi
 
 echo " "
 
-# Step 1: Exchange the authorization code for an access token
-TOKEN_RESPONSE=$(curl -s --request POST \
-  --url 'https://dev-y3450b42cwy8vyl1.us.auth0.com/oauth/token' \
-  --header 'content-type: application/x-www-form-urlencoded' \
-  --data "grant_type=password" \
-  --data "username=$PERFAI_USERNAME" \
-  --data "password=$PERFAI_PASSWORD" \
-  --data "audience=https://dev-y3450b42cwy8vyl1.us.auth0.com/api/v2/" \
-  --data "scope=openid profile email" \
-  --data "client_id=$CLIENT_ID" \
-  --data "client_secret=$CLIENT_SECRET")
+TOKEN_RESPONSE=$(curl -s --location --request POST "$API_ENDPOINT/api/v1/auth/token" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"username\": \"${PERFAI_USERNAME}\",
+    \"password\": \"${PERFAI_PASSWORD}\"
+}")
 
 ACCESS_TOKEN=$(echo $TOKEN_RESPONSE | jq -r '.id_token')
 
