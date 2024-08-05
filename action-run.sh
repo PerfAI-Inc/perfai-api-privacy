@@ -22,7 +22,8 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governa
           shift;
      done
 
-TOKEN_RESPONSE=$(curl -s --location --request POST "$API_ENDPOINT/api/v1/auth/token" \
+### Step 1: Print Access Token ###
+TOKEN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/auth/token" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"username\": \"${PERFAI_USERNAME}\",
