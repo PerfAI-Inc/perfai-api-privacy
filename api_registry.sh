@@ -34,6 +34,3 @@ ACCESS_TOKEN=$(echo $TOKEN_RESPONSE | jq -r '.id_token')
 echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
-API_REGISTRY_RESPONSE=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $ACCESS_TOKEN" -d "{\"openapi_spec\":\"${OPENAPI_SPEC}\",\"source\":\"${SOURCE}\",\"version\":\"${VERSION}\",\"name\":\"${NAME}\",\"governance_email\":\"${GOVERNANCE_EMAIL}\"}")
-
-echo "API Registry Successfully: $API_REGISTRY_RESPONSE"
