@@ -22,7 +22,8 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governa
           shift;
      done
 
-TOKEN_RESPONSE=$(curl -s --location --request POST "$API_ENDPOINT/api/v1/auth/token" \
+### Step 1: Print Access Token ###
+TOKEN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/auth/token" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"username\": \"${PERFAI_USERNAME}\",
@@ -34,6 +35,7 @@ ACCESS_TOKEN=$(echo $TOKEN_RESPONSE | jq -r '.id_token')
 echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
+### Step 2: Registry a API ###
 API_REGISTRY_RESPONSE=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $ACCESS_TOKEN" -d "{\"openapi_spec\":\"${OPENAPI_SPEC}\",\"source\":\"${SOURCE}\",\"version\":\"${VERSION}\",\"name\":\"${NAME}\",\"governance_email\":\"${GOVERNANCE_EMAIL}\"}")
 
 echo "API Registry Successfully: $API_REGISTRY_RESPONSE"
