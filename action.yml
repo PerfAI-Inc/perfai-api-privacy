@@ -35,15 +35,17 @@ inputs:
     
 outputs:
   report:
-    description: Displays performance report
+    description: Displays Report
 
 runs:
   using: "composite"
   steps:
-    - name: Grant execute permission for m2m.sh
-      run: chmod +x ${GITHUB_ACTION_PATH}/m2m.sh
+    - name: Grant execute permission for api_registry.sh and action-run.sh
+      run: chmod +x ${GITHUB_ACTION_PATH}/api_registry.sh
+      run: chmod +x ${GITHUB_ACTION_PATH}/action-run.sh
       shell: bash
       
     - name: Github Action
-      run: ${GITHUB_ACTION_PATH}/m2m.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}"
+ #     run: ${GITHUB_ACTION_PATH}/api_registry.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}"
+      run: ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{inputs.perfai-hostname}}" --username "${{inputs.perfai-username}}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.openapi_spec }}" --governance_email "${{ inputs.governance_email }}" --name "${{ inputs.name }}" --source  "${{ inputs.source}}" --version "${{ inputs.version }}"
       shell: bash 
