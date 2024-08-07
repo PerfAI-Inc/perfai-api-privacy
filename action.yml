@@ -43,6 +43,7 @@ runs:
 ### THIS IS 1st SCRIPT (API_REGISTRY.SH) ###  
     - name: Grant execute permission for api_registry.sh
       run: chmod +x ${GITHUB_ACTION_PATH}/api_registry.sh
+      shell: bash
       
     - name: Run api_registry.sh
       run: |
@@ -53,6 +54,7 @@ runs:
 ### THIS IS 2nd SCRIPT (ACTION_RUN.SH) ###
     - name: Grant execute permission for action-run.sh
       run: chmod +x ${GITHUB_ACTION_PATH}/action-run.sh
+      shell: bash
       
     - name: Run action-run.sh
       run: |
