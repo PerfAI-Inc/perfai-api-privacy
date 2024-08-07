@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,name:,source:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -12,11 +12,6 @@ do
         --hostname) PERFAI_HOSTNAME="$2"; shift;;
         --username) PERFAI_USERNAME="$2"; shift;;
         --password) PERFAI_PASSWORD="$2"; shift;;
-        --openapi_spec) OPENAPI_SPEC="$2"; shift;;
-        --governance_email) GOVERNANCE_EMAIL="$2"; shift;;
-        --name) NAME="$2"; shift;;
-        --source) SOURCE="$2"; shift;;
-        --version) VERSION="$2"; shift;;
         --) shift ;;
     esac
     shift;
