@@ -1,39 +1,69 @@
 # This is a basic workflow to help you get started with Actions
 
 name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # schedule:
+  #   - cron: '45 15 * * 4'
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Github Action for API Registry
+        uses: PerfAI-Inc/Github-Action-CI-CD@v21.0
+        with:
+           perfai-hostname: https://app.apiprivacy.com/
+           perfai-username: ${{ secrets.perfai_username }}
+           perfai-password: ${{ secrets.perfai_password }}
+           openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
+           governance_email: rashid@perfai.ai
+           name: api-registry
+           source: sensitive
+           version: 0.0.1
+           sarif-result-file: "perfai-results.sarif"
+    
+    ### Upload Sarif File ### 
+      - name: upload sarif file to repository
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./perfai-results.sarif
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v4
+      
+    # ### Upload Sarif File ### 
+    #   - name: Upload SARIF file
+    #     uses: github/codeql-action/upload-sarif@v3
+    #     with:
+    #       # Path to SARIF file relative to the root of the repository
+    #       sarif_file: results.sarif
+    #       # Optional category for the results
+    #       # Used to differentiate multiple results for one commit
+    #       category: my-analysis-tool
+          
+    # ### Email Alert Notifcation ###  
+    #   - name: Send mail
+    #     if: failure()
+    #     uses: dawidd6/action-send-mail@v3
+    #     with:
+    #        server_address: smtp.gmail.com
+    #        server_port: 465
+    #        username: ${{ secrets.EMAIL_USERNAME }}
+    #        password: ${{ secrets.EMAIL_PASSWORD }}
+    #        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}  
+    #        body: Build job of ${{ github.workflow }} https://github.com/PerfAI-Inc/Github-Action-CI-CD/security/code-scanning          
+    #        to: rashid@perfai.ai
+    #        from: Github Action 
+    #        convert_markdown: true
+    #        attachments: attachments.zip,git.diff,./dist/static/*.js   
+
+
+
 
 
           
