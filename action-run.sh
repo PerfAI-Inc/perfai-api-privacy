@@ -77,3 +77,8 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
 --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id, path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
 
 echo "Sensitive Data Fields: $sensitivefielddata"
+echo " "
+
+echo $sensitivefielddata >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
+echo "SARIF output file created successfully"
+
