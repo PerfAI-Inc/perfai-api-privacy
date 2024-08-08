@@ -23,13 +23,13 @@ jobs:
            # name: api-registry
            # source: sensitive
            # version: 0.0.1
-           sarif-result-file: "perfai-results.sarif"
+    #        sarif-result-file: "perfai-results.sarif"
     
-    ### Upload Sarif File ### 
-      - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ./perfai-results.sarif
+    # ### Upload Sarif File ### 
+    #   - name: upload sarif file to repository
+    #     uses: github/codeql-action/upload-sarif@v3
+    #     with:
+    #       sarif_file: ./perfai-results.sarif
 
 
 
