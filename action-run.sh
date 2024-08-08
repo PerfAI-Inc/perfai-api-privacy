@@ -65,3 +65,11 @@ RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/a
 }")
 
 echo "Run Response: $RUN_RESPONSE"
+
+
+### Step 4: Sensitive Data Field and Sensitive Details ###
+sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=66b357202f900c785d281fe4&page=1&pageSize=1" \
+--header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id, path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
+
+echo "Sensitive Data Fields: $sensitivefielddata" 
+
