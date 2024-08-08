@@ -39,41 +39,71 @@ echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
 
-### Step 2: Retrieve Catalog and App ID ###
+# ### Step 2: Retrieve Catalog and App ID ###
+# CATALOG_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/all?page=1&pageSize=1" \
+# --header "Authorization: Bearer $ACCESS_TOKEN")
+
+# CATALOG_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[].catalog_id')
+# APP_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[]._id')
+
+# if [ -z "$CATALOG_ID" ]; then
+#     echo "Failed to retrieve catalog ID."
+#     echo "Response was: $CATALOG_RESPONSE"
+# fi
+
+# if [ -z "$APP_ID" ]; then
+#     echo "Failed to retrieve catalog ID."
+#     echo "Response was: $APP_ID"
+# fi
+
+# echo "Catalog ID is: $CATALOG_ID"
+# echo "APP ID is: $APP_ID"
+# echo " "
+
+# ### Step 3: Schedule Action-Run ###
+# RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple" \
+# --header "Content-Type: application/json" \
+# --header "Authorization: Bearer $ACCESS_TOKEN" \
+# --data-raw "{
+#     \"catalog_id\": \"${CATALOG_ID}\",
+#     \"services\": [\"governance\", \"vms\", \"sensitive\", \"apitest\", \"performance\"]
+# }")
+
+# echo "Run Response: $RUN_RESPONSE"
+# echo " "
+
+# ### Step 4: Sensitive Data Details ###
+# sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
+# --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id, path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
+
+# echo "Sensitive Data Fields: $sensitivefielddata"
+
+# Fetch the catalog response
 CATALOG_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/all?page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN")
 
-CATALOG_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[].catalog_id')
-APP_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[]._id')
+# Print the entire response for debugging
+echo "Full Catalog Response: $CATALOG_RESPONSE"
 
+# Extract catalog_id and app_id
+CATALOG_ID=$(echo "$CATALOG_RESPONSE" | jq -r '.data[].catalog_id')
+APP_ID=$(echo "$CATALOG_RESPONSE" | jq -r '.data[]._id')
+
+# Check if CATALOG_ID was successfully retrieved
 if [ -z "$CATALOG_ID" ]; then
     echo "Failed to retrieve catalog ID."
     echo "Response was: $CATALOG_RESPONSE"
+    exit 1
 fi
 
+# Check if APP_ID was successfully retrieved
 if [ -z "$APP_ID" ]; then
-    echo "Failed to retrieve catalog ID."
-    echo "Response was: $APP_ID"
+    echo "Failed to retrieve App ID."
+    echo "Response was: $CATALOG_RESPONSE"
+    exit 1
 fi
 
+# Print the catalog ID and app ID
 echo "Catalog ID is: $CATALOG_ID"
-echo "APP ID is: $APP_ID"
-echo " "
+echo "App ID is: $APP_ID"
 
-### Step 3: Schedule Action-Run ###
-RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple" \
---header "Content-Type: application/json" \
---header "Authorization: Bearer $ACCESS_TOKEN" \
---data-raw "{
-    \"catalog_id\": \"${CATALOG_ID}\",
-    \"services\": [\"governance\", \"vms\", \"sensitive\", \"apitest\", \"performance\"]
-}")
-
-echo "Run Response: $RUN_RESPONSE"
-echo " "
-
-### Step 4: Sensitive Data Details ###
-sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
---header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id, path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
-
-echo "Sensitive Data Fields: $sensitivefielddata"
