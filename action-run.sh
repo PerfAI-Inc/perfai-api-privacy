@@ -39,7 +39,7 @@ echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
 
-### Step 2: Retrieve Catalog ID ###
+### Step 2: Retrieve Catalog and App ID ###
 CATALOG_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/all?page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN")
 
