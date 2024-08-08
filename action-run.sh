@@ -49,13 +49,11 @@ APP_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[]._id')
 if [ -z "$CATALOG_ID" ]; then
     echo "Failed to retrieve catalog ID."
     echo "Response was: $CATALOG_RESPONSE"
-    exit 1
 fi
 
 if [ -z "$APP_ID" ]; then
     echo "Failed to retrieve catalog ID."
     echo "Response was: $APP_ID"
-    exit 1
 fi
 
 echo "Catalog ID is: $CATALOG_ID"
