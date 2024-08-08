@@ -40,7 +40,7 @@ echo " "
 
 
 ### Step 2: Retrieve Catalog ID ###
-CATALOG_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/version-management-service/apps/contract-all?page=1&pageSize=1000" \
+CATALOG_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/all?page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN")
 
 CATALOG_ID=$(echo $CATALOG_RESPONSE | jq -r '.data[].catalog_id')
