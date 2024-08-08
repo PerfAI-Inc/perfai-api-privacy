@@ -32,6 +32,9 @@ inputs:
   version:
     description: 'Token Authentication URL'
     required: true
+  sarif-result-file: 
+    description: 'Sensitive Data Details'
+    required: true
     
 outputs:
   report:
