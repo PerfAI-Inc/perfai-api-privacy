@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Github Action for API Registry
-        uses: PerfAI-Inc/Github-Action-CI-CD@v21.0
+        uses: PerfAI-Inc/Github-Action-CI-CD@v22.0
         with:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
            openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
-           governance_email: rashid@perfai.ai
-           name: api-registry
-           source: sensitive
-           version: 0.0.1
+           # governance_email: rashid@perfai.ai
+           # name: api-registry
+           # source: sensitive
+           # version: 0.0.1
            sarif-result-file: "perfai-results.sarif"
     
     ### Upload Sarif File ### 
