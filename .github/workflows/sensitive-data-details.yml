@@ -18,19 +18,14 @@ jobs:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
+           sarif-result-file: "perfai-results.sarif"
            
-           # openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
-           # governance_email: rashid@perfai.ai
-           # name: api-registry
-           # source: sensitive
-           # version: 0.0.1
-           # sarif-result-file: "perfai-results.sarif"
     
-    # ### Upload Sarif File ### 
-    #   - name: upload sarif file to repository
-    #     uses: github/codeql-action/upload-sarif@v3
-    #     with:
-    #       sarif_file: ./perfai-results.sarif
+    ### Upload Sarif File ### 
+      - name: upload sarif file to repository
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./perfai-results.sarif
 
 
     #   - name: Checkout repository
