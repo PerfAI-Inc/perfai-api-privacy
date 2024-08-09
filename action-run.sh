@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,outputfile:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -12,6 +12,7 @@ do
         --hostname) PERFAI_HOSTNAME="$2"; shift;;
         --username) PERFAI_USERNAME="$2"; shift;;
         --password) PERFAI_PASSWORD="$2"; shift;;
+        --outputfile) OUTPUT_FILENAME="$2"; shift;;
         --) shift ;;
     esac
     shift;
@@ -79,6 +80,6 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
 echo "Sensitive Data Fields: $sensitivefielddata"
 echo " "
 
-echo $sensitivefielddata >> $GITHUB_WORKSPACE/perfai-results.sarif
+echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
 echo "SARIF output file created successfully"
 
