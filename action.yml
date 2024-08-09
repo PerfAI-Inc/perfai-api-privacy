@@ -61,5 +61,5 @@ runs:
       
     - name: Run action-run.sh
       run: |
-        ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}"
+        ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --outfile "${{ inputs.sarif-result-file }}"
       shell: bash
