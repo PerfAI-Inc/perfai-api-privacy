@@ -22,24 +22,25 @@ jobs:
            
     
     ### Upload Sarif File ### 
-      - name: upload sarif file to repository
+      # - name: upload sarif file to repository
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: ./perfai-results.sarif
+
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+    ### Upload Sarif File ### 
+      - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ./perfai-results.sarif
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: my-analysis-tool
 
-
-    #   - name: Checkout repository
-    #     uses: actions/checkout@v4
-      
-    # ### Upload Sarif File ### 
-    #   - name: Upload SARIF file
-    #     uses: github/codeql-action/upload-sarif@v3
-    #     with:
-    #       # Path to SARIF file relative to the root of the repository
-    #       sarif_file: results.sarif
-    #       # Optional category for the results
-    #       # Used to differentiate multiple results for one commit
-    #       category: my-analysis-tool
           
     # ### Email Alert Notifcation ###  
     #   - name: Send mail
