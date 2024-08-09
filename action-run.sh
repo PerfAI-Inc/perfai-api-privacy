@@ -79,6 +79,6 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
 echo "Sensitive Data Fields: $sensitivefielddata"
 echo " "
 
-echo $sensitivefielddata >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
+echo $sensitivefielddata >> $GITHUB_WORKSPACE/results.sarif
 echo "SARIF output file created successfully"
 
