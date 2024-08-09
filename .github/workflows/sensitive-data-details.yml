@@ -24,7 +24,7 @@ jobs:
 
       ### Upload Sarif File ### 
       - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif-file: ./perfai-results.sarif
       
