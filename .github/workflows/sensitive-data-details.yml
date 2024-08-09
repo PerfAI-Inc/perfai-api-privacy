@@ -24,7 +24,12 @@ jobs:
         id: read-file
         run: |
           cat perfai-results.sarif
-          
+
+      - name: wget
+        uses: wei/wget@v1
+        with:           
+           args: -O simple-example.sarif https://raw.githubusercontent.com/microsoft/sarif-tutorials/main/samples/1-Introduction/simple-example.sarif  
+           
     ### Upload Sarif File ### 
       # - name: upload sarif file to repository
       #   uses: github/codeql-action/upload-sarif@v3
@@ -40,7 +45,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           # Path to SARIF file relative to the root of the repository
-          sarif_file: ./perfai-results.sarif
+          sarif_file: ./simple-example.sarif
           # Optional category for the results
           # Used to differentiate multiple results for one commit
           category: my-analysis-tool
