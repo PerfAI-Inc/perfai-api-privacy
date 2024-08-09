@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Github Action for API Registry
-        uses: PerfAI-Inc/Github-Action-CI-CD@v27.0
+        uses: PerfAI-Inc/Github-Action-CI-CD@v28.0
         with:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           # sarif-file: "perfai-results.sarif"
+           sarif-result-file: "perfai-results.sarif"
            
     
     ### Upload Sarif File ### 
@@ -40,7 +40,7 @@ jobs:
           # Optional category for the results
           # Used to differentiate multiple results for one commit
           category: my-analysis-tool
-
+ 
           
     # ### Email Alert Notifcation ###  
     #   - name: Send mail
