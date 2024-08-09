@@ -22,15 +22,15 @@ jobs:
            perfai-password: ${{ secrets.perfai_password }}
            sarif-result-file: "perfai-results.sarif"
            
-      - name: Read file content
-        id: read-file
-        run: |
-          cat perfai-results.sarif
+      # - name: Read file content
+      #   id: read-file
+      #   run: |
+      #     cat perfai-results.sarif
 
-      - name: wget
-        uses: wei/wget@v1
-        with:           
-           args: -O simple-example.sarif https://raw.githubusercontent.com/microsoft/sarif-tutorials/main/samples/1-Introduction/simple-example.sarif  
+      # - name: wget
+      #   uses: wei/wget@v1
+      #   with:           
+      #      args: -O simple-example.sarif https://raw.githubusercontent.com/microsoft/sarif-tutorials/main/samples/1-Introduction/simple-example.sarif  
            
     ### Upload Sarif File ### 
       # - name: upload sarif file to repository
