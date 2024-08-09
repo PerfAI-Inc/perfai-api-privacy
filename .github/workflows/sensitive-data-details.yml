@@ -32,8 +32,8 @@ jobs:
       #     sarif-file: ./perfai-results.sarif
 
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
       
     ### Upload Sarif File ### 
       - name: Upload SARIF file
