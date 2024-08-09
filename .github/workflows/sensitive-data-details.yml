@@ -20,7 +20,11 @@ jobs:
            perfai-password: ${{ secrets.perfai_password }}
            sarif-result-file: "perfai-results.sarif"
            
-    
+      - name: Read file content
+        id: read-file
+        run: |
+          cat perfai-results.sarif
+          
     ### Upload Sarif File ### 
       # - name: upload sarif file to repository
       #   uses: github/codeql-action/upload-sarif@v3
