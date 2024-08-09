@@ -22,11 +22,11 @@ jobs:
            perfai-password: ${{ secrets.perfai_password }}
            sarif-result-file: "perfai-results.sarif"
 
-      ### Upload Sarif File ### 
-      - name: upload sarif file to repository
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif-file: ./perfai-results.sarif
+      # ### Upload Sarif File ### 
+      # - name: upload sarif file to repository
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif-file: ./perfai-results.sarif
       
            
       # - name: Read file content
@@ -50,14 +50,14 @@ jobs:
       #   uses: actions/checkout@v4
       
     ### Upload Sarif File ### 
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     # Path to SARIF file relative to the root of the repository
-      #     sarif_file: ./simple-example.sarif
-      #     # Optional category for the results
-      #     # Used to differentiate multiple results for one commit
-      #     category: my-analysis-tool
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: ./perfai-results.sarif
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: my-analysis-tool
  
           
     # ### Email Alert Notifcation ###  
