@@ -23,10 +23,10 @@ jobs:
            sarif-result-file: "perfai-results.sarif"
 
            
-      # - name: Read file content
-      #   id: read-file
-      #   run: |
-      #     cat perfai-results.sarif
+      - name: Read file content
+        id: read-file
+        run: |
+          cat perfai-results.sarif
 
       # - name: wget
       #   uses: wei/wget@v1
@@ -39,9 +39,6 @@ jobs:
       #   with:
       #     sarif-file: ./perfai-results.sarif
 
-
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
       
     ### Upload Sarif File ### 
       - name: Upload SARIF file
