@@ -84,7 +84,7 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                 "driver": {
                     "name": "Custom Security Tool",
                     "version": "1.0.0",
-                    "informationUri": "https://example.com",  # Replace with actual URI if needed
+                    "informationUri": "https://example.com",
                     "rules": []
                 }
             },
@@ -98,16 +98,12 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": .issues[].path
+                                    # "uri": "file:///" + .issues[].path  # Adjust the URI as needed
                                 },
                                 "region": {
                                     "startLine": 1,
                                     "startColumn": 1
                                 }
-                            },
-                            "logicalLocation": {
-                                "name": .issues[].location,
-                                "kind": .issues[].label
                             }
                         }
                     ],
@@ -127,7 +123,6 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
         }
     ]
 }')
-
 
 # Write SARIF data to file
 echo "Sensitive Data Fields: $sensitivefielddata"
