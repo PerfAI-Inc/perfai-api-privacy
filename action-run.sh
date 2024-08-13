@@ -94,19 +94,6 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                     "message": {
                         "text": .issues[].explainer
                     },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                     "uri": "fileURI"
-                                },
-                                "region": {
-                                    "startLine": 1,
-                                    "startColumn": 1
-                                }
-                            }
-                        }
-                    ],
                     "properties": {
                         "id": .issues[].id,
                         "impact": .issues[].impact,
