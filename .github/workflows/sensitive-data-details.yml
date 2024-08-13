@@ -42,8 +42,68 @@ jobs:
       # - name: Run npm install
       #   run: npm install
 
-      - name: Run ESLint
-        run: node_modules/.bin/eslint build docs lib script spec-main -f node_modules/@microsoft/eslint-formatter-sarif/sarif.js -o perfai-results.sarif || true
+      # - name: Run ESLint
+      #   run: node_modules/.bin/eslint build docs lib script spec-main -f node_modules/@microsoft/eslint-formatter-sarif/sarif.js -o perfai-results.sarif || true
+
+      - name: Generate SARIF file
+        run: |
+           echo '{
+           "version": "2.1.0",
+           "runs": [
+             {
+              "tool": {
+                "driver": {
+                  "name": "Custom PII Scanner",
+                  "version": "1.0.0",
+                  "informationUri": "https://example.com",
+                  "rules": []
+                }
+              },
+              "results": [
+                {
+                  "ruleId": "PII-Leak",
+                  "message": {
+                    "text": "PII data leak detected in the response."
+                  },
+                  "locations": [
+                    {
+                      "physicalLocation": {
+                        "artifactLocation": {
+                          "uri": "/user/{username}"
+                        },
+                        "region": {
+                          "startLine": 1
+                        }
+                      }
+                    }
+                  ],
+                  "properties": {
+                    "id": "66b357212f900c785d28206a",
+                    "impact": "Leak",
+                    "location": "Response Field.username",
+                    "name": "username",
+                    "label": "PII Data",
+                    "direction": "OUT",
+                    "severity": "Medium",
+                    "created_on": "2024-08-10T09:30:27.739Z",
+                    "response": "{\"id\":1,\"username\":\"johnsmith\",\"firstName\":\"John\",\"lastName\":\"Smith\",\"email\":\"john@example.com\",\"password\":\"s3cur3p@ssw0rd\",\"phone\":\"1234567890\",\"userStatus\":5}",
+                    "explainer": "PII Data includes personally identifiable information used for online identification, such as names, addresses, and contact details.",
+                    "remediation": "Encrypt sensitive PII data during storage and transmission to prevent unauthorized access. Implement masking or partial obfuscation techniques where feasible."
+                  }
+                }
+               ]
+              }
+             ]
+           }' > perfai-results.sarif
+        
+           
+      - name: Validate SARIF file
+        run: |
+          if ! jq . perfai-results.sarif > /dev/null 2>&1; then
+            echo "SARIF file is not valid."
+            exit 1
+          fi
+
 
     ### Upload Sarif File ### 
       - name: Upload SARIF file
