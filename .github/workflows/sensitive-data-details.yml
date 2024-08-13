@@ -52,7 +52,6 @@ jobs:
       #       exit 1
       #     fi
 
-
     ### Upload Sarif File ### 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
