@@ -23,7 +23,7 @@ jobs:
            sarif-result-file: "perfai-results.sarif"
 
            
-      - name: Read file content
+      - name: PerfAI Sarif
         id: read-file
         run: |
           cat perfai-results.sarif
@@ -39,8 +39,8 @@ jobs:
       #   with:
       #     sarif-file: ./perfai-results.sarif
 
-      - name: Run npm install
-        run: npm install
+      # - name: Run npm install
+      #   run: npm install
 
       - name: Run ESLint
         run: node_modules/.bin/eslint build docs lib script spec-main -f node_modules/@microsoft/eslint-formatter-sarif/sarif.js -o perfai-results.sarif || true
