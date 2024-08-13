@@ -98,7 +98,7 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    # "uri": "file:///" + .issues[].path  # Adjust the URI as needed
+                                     "uri": "fileURI"
                                 },
                                 "region": {
                                     "startLine": 1,
