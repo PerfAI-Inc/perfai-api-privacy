@@ -77,6 +77,7 @@ echo " "
 
 sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
+   "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
     "version": "2.1.0",
     "runs": [
         {
