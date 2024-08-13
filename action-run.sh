@@ -74,9 +74,9 @@ echo "Run Response: $RUN_RESPONSE"
 echo " "
 
 ### Step 4: Sensitive Data Details ###
+
 sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
-    "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
     "version": "2.1.0",
     "runs": [
         {
@@ -94,6 +94,20 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                     "message": {
                         "text": .issues[].explainer
                     },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": .issues[].path,
+                                    "uriBaseId": "%SRCROOT%"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "startColumn": 1
+                                }
+                            }
+                        }
+                    ],
                     "properties": {
                         "id": .issues[].id,
                         "impact": .issues[].impact,
@@ -110,6 +124,7 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
         }
     ]
 }')
+
 
 # Write SARIF data to file
 echo "Sensitive Data Fields: $sensitivefielddata"
