@@ -20,7 +20,7 @@ done
 
 echo " "
 
-### Step 1: Print Access Token ###
+### Step 1:Authenticate User Get Token
 TOKEN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/auth/token" \
 --header "Content-Type: application/json" \
 --data-raw "{
