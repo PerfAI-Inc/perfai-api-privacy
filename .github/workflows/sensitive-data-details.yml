@@ -23,10 +23,10 @@ jobs:
            sarif-result-file: "perfai-results.sarif"
 
            
-      # - name: PerfAI Sarif
-      #   id: read-file
-      #   run: |
-      #     cat perfai-results.sarif
+      - name: View Sarif Result
+        id: read-file
+        run: |
+          cat perfai-results.sarif
 
       # - name: wget
       #   uses: wei/wget@v1
