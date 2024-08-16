@@ -134,26 +134,74 @@ echo " "
 
 # echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
 
-
 sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
---header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id: .id, path: .path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
-
-# Use the template structure to create a valid SARIF file
-echo '{
+--header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
   "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
   "version": "2.1.0",
-  "runs": [{
-    "tool": {"driver": {"name": "Custom Security Tool", "rules": [{"id": "PII-Leak"}]}},
-    "results": [
-      {
-        "ruleId": "PII-Leak",
-        "message": {"text": "Sensitive PII data found."},
-        "locations": [{"physicalLocation": {"artifactLocation": {"uri": "source_file.js"}}}],
-        "properties": '"$sensitivefielddata"'
-      }
-    ]
-  }]
-}' > perfai-results.sarif
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Custom Security Tool",
+          "version": "1.0.0",
+          "informationUri": "https://example.com/tool-info",
+          "rules": [
+            {
+              "id": "PII-Leak",
+              "shortDescription": {
+                "text": "Sensitive PII Data Leak"
+              },
+              "fullDescription": {
+                "text": "PII Data includes personally identifiable information used for online identification, such as names, addresses, and contact details."
+              },
+              "helpUri": "https://example.com/rules/PII-Leak",
+              "properties": {
+                "tags": ["security", "privacy"]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "PII-Leak",
+          "message": {
+            "text": "Encrypt sensitive PII data during storage and transmission to prevent unauthorized access. Implement masking or partial obfuscation techniques where feasible."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "user/%7Busername%7D",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "id": "66b357212f900c785d28206a",
+            "impact": "Leak",
+            "location": "Response Field.username",
+            "name": "username",
+            "label": "PII Data",
+            "direction": "OUT",
+            "severity": "Medium",
+            "created_on": "2024-08-10T09:30:27.739Z",
+            "response": "{\"id\":1,\"username\":\"johnsmith\",\"firstName\":\"John\",\"lastName\":\"Smith\",\"email\":\"john@example.com\",\"password\":\"s3cur3p@ssw0rd\",\"phone\":\"1234567890\",\"userStatus\":5}",
+            "explainer": "PII Data includes personally identifiable information used for online identification, such as names, addresses, and contact details.",
+            "remediation": "Encrypt sensitive PII data during storage and transmission to prevent unauthorized access. Implement masking or partial obfuscation techniques where feasible."
+          }
+        }
+      ]
+    }
+  ]
+}')
+
+echo "Sensitive Field Details: $sensitivefielddata"
 
 echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME 
 
