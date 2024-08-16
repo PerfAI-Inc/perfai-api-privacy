@@ -75,65 +75,87 @@ echo " "
 
 ### Step 4: Sensitive Data Details ###
 
-sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
---header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
-   "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-    "version": "2.1.0",
-    "runs": [
-        {
-            "tool": {
-                "driver": {
-                    "name": "Custom Security Tool",
-                    "version": "1.0.0",
-                    "informationUri": "https://example.com",
-                    "rules": []
-                }
-            },
-            "results": [
-                {
-                    "ruleId": "PII-Leak",
-                    "message": {
-                        "text": .issues[].explainer
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": .issues[].path,
-                                    "uriBaseId": "%SRCROOT%"
-                                },
-                                "region": {
-                                    "startLine": 1,
-                                    "startColumn": 1
-                                }
-                            }
-                        }
-                    ],
-                    "properties": {
-                        "id": .issues[].id,
-                        "impact": .issues[].impact,
-                        "name": .issues[].name,
-                        "label": .issues[].label,
-                        "direction": .issues[].direction,
-                        "severity": .issues[].severity,
-                        "created_on": .issues[].created_on,
-                        "response": .issues[].response,
-                        "remediation": .issues[].remediation
-                    }
-                }
-            ]
-        }
-    ]
-}')
+# sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
+# --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
+#    "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+#     "version": "2.1.0",
+#     "runs": [
+#         {
+#             "tool": {
+#                 "driver": {
+#                     "name": "Custom Security Tool",
+#                     "version": "1.0.0",
+#                     "informationUri": "https://example.com",
+#                     "rules": []
+#                 }
+#             },
+#             "results": [
+#                 {
+#                     "ruleId": "PII-Leak",
+#                     "message": {
+#                         "text": .issues[].explainer
+#                     },
+#                     "locations": [
+#                         {
+#                             "physicalLocation": {
+#                                 "artifactLocation": {
+#                                     "uri": .issues[].path,
+#                                     "uriBaseId": "%SRCROOT%"
+#                                 },
+#                                 "region": {
+#                                     "startLine": 1,
+#                                     "startColumn": 1
+#                                 }
+#                             }
+#                         }
+#                     ],
+#                     "properties": {
+#                         "id": .issues[].id,
+#                         "impact": .issues[].impact,
+#                         "name": .issues[].name,
+#                         "label": .issues[].label,
+#                         "direction": .issues[].direction,
+#                         "severity": .issues[].severity,
+#                         "created_on": .issues[].created_on,
+#                         "response": .issues[].response,
+#                         "remediation": .issues[].remediation
+#                     }
+#                 }
+#             ]
+#         }
+#     ]
+# }')
+
 
 
 # Write SARIF data to file
-echo "Sensitive Data Fields: $sensitivefielddata"
-echo " "
+# echo "Sensitive Data Fields: $sensitivefielddata"
+# echo " "
 
-echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
+# echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
 
 
+sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
+--header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.issues[] | {id: .id, path: .path, impact: .impact, location: .location, name: .name, label: .label, direction: .direction, severity: .severity, created_on: .created_on, response: .response, explainer: .explainer, remediation: .remediation}')
+
+# Use the template structure to create a valid SARIF file
+echo '{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [{
+    "tool": {"driver": {"name": "Custom Security Tool", "rules": [{"id": "PII-Leak"}]}},
+    "results": [
+      {
+        "ruleId": "PII-Leak",
+        "message": {"text": "Sensitive PII data found."},
+        "locations": [{"physicalLocation": {"artifactLocation": {"uri": "source_file.js"}}}],
+        "properties": '"$sensitivefielddata"'
+      }
+    ]
+  }]
+}' > perfai-results.sarif
+
+echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME 
 
 
 # sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
