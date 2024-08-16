@@ -136,37 +136,38 @@ echo " "
 
 sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
-  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
   "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "Custom Security Tool",
           "version": "1.0.0",
-          "informationUri": "https://example.com/tool-info",
+          "informationUri": "https://example.com/security-tool",
           "rules": [
             {
-              "id": "PII-Leak",
+              "id": "PII001",
+              "name": "Sensitive Data Exposure",
               "shortDescription": {
-                "text": "Sensitive PII Data Leak"
+                "text": "Sensitive data field exposure detected"
               },
               "fullDescription": {
-                "text": "PII Data includes personally identifiable information used for online identification, such as names, addresses, and contact details."
+                "text": "The sensitive data field 'username' was found in the response."
               },
-              "helpUri": "https://example.com/rules/PII-Leak",
-              "properties": {
-                "tags": ["security", "privacy"]
-              }
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://example.com/security-tool/rules/PII001"
             }
           ]
         }
       },
       "results": [
         {
-          "ruleId": "PII-Leak",
+          "ruleId": "PII001",
           "message": {
-            "text": "Encrypt sensitive PII data during storage and transmission to prevent unauthorized access. Implement masking or partial obfuscation techniques where feasible."
+            "text": "Sensitive data field 'username' detected in the response."
           },
           "locations": [
             {
@@ -179,21 +180,18 @@ sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api
                   "startLine": 1,
                   "startColumn": 1
                 }
-              }
+              },
+              "logicalLocations": [
+                {
+                  "name": "Response Field",
+                  "kind": "response"
+                }
+              ]
             }
           ],
           "properties": {
-            "id": "66b357212f900c785d28206a",
-            "impact": "Leak",
-            "location": "Response Field.username",
-            "name": "username",
-            "label": "PII Data",
-            "direction": "OUT",
-            "severity": "Medium",
-            "created_on": "2024-08-10T09:30:27.739Z",
-            "response": "{\"id\":1,\"username\":\"johnsmith\",\"firstName\":\"John\",\"lastName\":\"Smith\",\"email\":\"john@example.com\",\"password\":\"s3cur3p@ssw0rd\",\"phone\":\"1234567890\",\"userStatus\":5}",
-            "explainer": "PII Data includes personally identifiable information used for online identification, such as names, addresses, and contact details.",
-            "remediation": "Encrypt sensitive PII data during storage and transmission to prevent unauthorized access. Implement masking or partial obfuscation techniques where feasible."
+            "method": "GET",
+            "field": "username"
           }
         }
       ]
