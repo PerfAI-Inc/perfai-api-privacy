@@ -73,6 +73,81 @@ RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/a
 echo "Run Response: $RUN_RESPONSE"
 echo " "
 
+
+# Fetch vulnerability data from the API
+vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/issues?app_id=66c5b89600fbf372c2f1f117&page=1&pageSize=1" \
+--header "Authorization: Bearer $ACCESS_TOKEN")
+
+# Create the SARIF formatted data using the fetched vulnerability data
+sarif_output=$(cat <<EOF
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Custom Vulnerability Scanner",
+          "version": "1.0",
+          "informationUri": "https://example.com/tool-info",
+          "rules": [
+            {
+              "id": "API-DP9-2024",
+              "name": "Bot Data Modification",
+              "shortDescription": {
+                "text": "This rule identifies API endpoints vulnerable to bot data modification."
+              },
+              "fullDescription": {
+                "text": "An attacker can create user by making unauthenticated post requests to the /user endpoint. This vulnerability allows attackers to bypass authentication and authorization mechanisms, potentially leading to unauthorized access to the system and data breaches."
+              },
+              "helpUri": "https://example.com/rules/API-DP9-2024",
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "API-DP9-2024",
+          "level": "Severity",
+          "message": {
+            "text": "Vulnerability Report: Bot Data Modification on POST /user Endpoint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "user",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+EOF
+)
+
+# Output the SARIF formatted data to a file
+echo "$sarif_output" > vulnerabilities-results.sarif
+
+# Print the SARIF formatted vulnerabilities
+echo "Vulnerabilities SARIF: $sarif_output"
+
+
+
+
+
+
+
 ### Step 4: Sensitive Data Details ###
 
 # sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
@@ -134,74 +209,74 @@ echo " "
 
 # echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
 
-sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
---header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
-  "version": "2.1.0",
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
-  "runs": [
-    {
-      "tool": {
-        "driver": {
-          "name": "Custom Security Tool",
-          "version": "1.0.0",
-          "informationUri": "https://example.com/security-tool",
-          "rules": [
-            {
-              "id": "PII001",
-              "name": "Sensitive Data Exposure",
-              "shortDescription": {
-                "text": "Sensitive data field exposure detected"
-              },
-              "fullDescription": {
-                "text": "The sensitive data field 'username' was found in the response."
-              },
-              "defaultConfiguration": {
-                "level": "warning"
-              },
-              "helpUri": "https://example.com/security-tool/rules/PII001"
-            }
-          ]
-        }
-      },
-      "results": [
-        {
-          "ruleId": "PII001",
-          "message": {
-            "text": "Sensitive data field 'username' detected in the response."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "user/%7Busername%7D",
-                  "uriBaseId": "%SRCROOT%"
-                },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1
-                }
-              },
-              "logicalLocations": [
-                {
-                  "name": "Response Field",
-                  "kind": "response"
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "method": "GET",
-            "field": "username"
-          }
-        }
-      ]
-    }
-  ]
-}')
+# sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
+# --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
+#   "version": "2.1.0",
+#   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+#   "runs": [
+#     {
+#       "tool": {
+#         "driver": {
+#           "name": "Custom Security Tool",
+#           "version": "1.0.0",
+#           "informationUri": "https://example.com/security-tool",
+#           "rules": [
+#             {
+#               "id": "PII001",
+#               "name": "Sensitive Data Exposure",
+#               "shortDescription": {
+#                 "text": "Sensitive data field exposure detected"
+#               },
+#               "fullDescription": {
+#                 "text": "The sensitive data field 'username' was found in the response."
+#               },
+#               "defaultConfiguration": {
+#                 "level": "warning"
+#               },
+#               "helpUri": "https://example.com/security-tool/rules/PII001"
+#             }
+#           ]
+#         }
+#       },
+#       "results": [
+#         {
+#           "ruleId": "PII001",
+#           "message": {
+#             "text": "Sensitive data field 'username' detected in the response."
+#           },
+#           "locations": [
+#             {
+#               "physicalLocation": {
+#                 "artifactLocation": {
+#                   "uri": "user/%7Busername%7D",
+#                   "uriBaseId": "%SRCROOT%"
+#                 },
+#                 "region": {
+#                   "startLine": 1,
+#                   "startColumn": 1
+#                 }
+#               },
+#               "logicalLocations": [
+#                 {
+#                   "name": "Response Field",
+#                   "kind": "response"
+#                 }
+#               ]
+#             }
+#           ],
+#           "properties": {
+#             "method": "GET",
+#             "field": "username"
+#           }
+#         }
+#       ]
+#     }
+#   ]
+# }')
 
-echo "Sensitive Field Details: $sensitivefielddata"
+# echo "Sensitive Field Details: $sensitivefielddata"
 
-echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME 
+# echo "$sensitivefielddata" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME 
 
 
 # sensitivefielddata=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/endpoint-piis?app_id=$APP_ID&page=1&pageSize=1" \
