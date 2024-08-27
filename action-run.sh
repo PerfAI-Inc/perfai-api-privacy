@@ -81,7 +81,7 @@ vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1
 # Create the SARIF formatted data using the fetched vulnerability data
 sarif_output=$(cat <<EOF
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "\$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -98,11 +98,11 @@ sarif_output=$(cat <<EOF
                 "text": "This rule identifies API endpoints vulnerable to bot data modification."
               },
               "fullDescription": {
-                "text": "An attacker can create user by making unauthenticated post requests to the /user endpoint. This vulnerability allows attackers to bypass authentication and authorization mechanisms, potentially leading to unauthorized access to the system and data breaches."
+                "text": "An attacker can create a user by making unauthenticated POST requests to the /user endpoint. This vulnerability allows attackers to bypass authentication and authorization mechanisms, potentially leading to unauthorized access to the system and data breaches."
               },
               "helpUri": "https://example.com/rules/API-DP9-2024",
               "defaultConfiguration": {
-                "level": "severity"
+                "level": "error"
               }
             }
           ]
@@ -111,7 +111,7 @@ sarif_output=$(cat <<EOF
       "results": [
         {
           "ruleId": "API-DP9-2024",
-          "level": "error",
+          "level": "error",  # Corrected value
           "message": {
             "text": "Vulnerability Report: Bot Data Modification on POST /user Endpoint."
           },
@@ -136,12 +136,10 @@ sarif_output=$(cat <<EOF
 EOF
 )
 
-# Output the SARIF formatted data to a file
-echo "$sarif_output" > vulnerabilities-results.sarif
-
 # Print the SARIF formatted vulnerabilities
 echo "Vulnerabilities SARIF: $sarif_output"
 
+echo "$sarif_output" > vulnerabilities-results.sarif
 
 
 
