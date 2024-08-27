@@ -102,7 +102,7 @@ sarif_output=$(cat <<EOF
               },
               "helpUri": "https://example.com/rules/API-DP9-2024",
               "defaultConfiguration": {
-                "level": "error"
+                "level": "severity"
               }
             }
           ]
@@ -111,7 +111,7 @@ sarif_output=$(cat <<EOF
       "results": [
         {
           "ruleId": "API-DP9-2024",
-          "level": "Severity",
+          "level": "error",
           "message": {
             "text": "Vulnerability Report: Bot Data Modification on POST /user Endpoint."
           },
