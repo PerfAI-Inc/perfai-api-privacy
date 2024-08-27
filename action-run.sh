@@ -139,7 +139,10 @@ EOF
 # Print the SARIF formatted vulnerabilities
 echo "Vulnerabilities SARIF: $sarif_output"
 
-echo "$sarif_output" > vulnerabilities-results.sarif
+echo "$sarif_output" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
+
+
+
 
 
 
