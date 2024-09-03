@@ -81,7 +81,7 @@ vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1
 # Create the SARIF formatted data using the fetched vulnerability data
 sarif_output=$(cat <<EOF
 {
-  "\$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -111,7 +111,7 @@ sarif_output=$(cat <<EOF
       "results": [
         {
           "ruleId": "API-DP9-2024",
-          "level": "error",  # Corrected value
+          "level": "error",
           "message": {
             "text": "Vulnerability Report: Bot Data Modification on POST /user Endpoint."
           },
@@ -140,8 +140,8 @@ EOF
 echo "Vulnerabilities SARIF: $sarif_output"
 
 # Write SARIF data to the specified output file
-echo "$sarif_output" > "$GITHUB_WORKSPACE/$OUTPUT_FILENAME"
-# echo "$sarif_output" >> $GITHUB_WORKSPACE/$OUTPUT_FILENAME
+echo "$sarif_output" >> "$GITHUB_WORKSPACE/$OUTPUT_FILENAME"
+
 
 
 
