@@ -77,6 +77,7 @@ echo " "
 # Fetch vulnerability data from the API
 vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/issues?app_id=66c5b89600fbf372c2f1f117&page=1&pageSize=1" \
 --header "Authorization: Bearer $ACCESS_TOKEN")
+sarif_output=$(cat <<EOF
 {
   "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
   "version": "2.1.0",
@@ -130,12 +131,18 @@ vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1
     }
   ]
 }
+EOF
+)
 
 # Print the SARIF formatted vulnerabilities
 echo "Vulnerabilities SARIF: $sarif_output"
 
 # Write SARIF data to the specified output file
 echo "$sarif_output" >> "$GITHUB_WORKSPACE/$OUTPUT_FILENAME"
+
+
+
+
 
 # # Create the SARIF formatted data using the fetched vulnerability data
 # sarif_output=$(cat <<EOF
