@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,name:,base_path:,source:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,label:,base_path:,source:" -- -- "$@")
 
      [ $? -eq 0 ] || exit
 
@@ -14,7 +14,7 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governa
                --password) PERFAI_PASSWORD="$2"; shift;;
                --openapi_spec) OPENAPI_SPEC="$2"; shift;;
                --governance_email) GOVERNANCE_EMAIL="$2"; shift;;
-               --name) NAME="$2"; shift;;
+               --label) LABEL="$2"; shift;;
                --source) SOURCE="$2"; shift;;
                --version) VERSION="$2"; shift;;
                --base_path) BASE_PATH="$2"; shift;;
@@ -37,6 +37,6 @@ echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
 ### Step 2: Registry a API ###
-API_REGISTRY_RESPONSE=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $ACCESS_TOKEN" -d "{\"openapi_spec\":\"${OPENAPI_SPEC}\",\"source\":\"${SOURCE}\",\"base_path\":\"${BASE_PATH}\",\"version\":\"${VERSION}\",\"name\":\"${NAME}\",\"governance_email\":\"${GOVERNANCE_EMAIL}\"}")
+API_REGISTRY_RESPONSE=$(curl -s -H "Accept: application/json" -H "Content-Type: application/json" --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/create-run" --header "Authorization: Bearer $ACCESS_TOKEN" -d "{\"openapi_spec\":\"${OPENAPI_SPEC}\",\"source\":\"${SOURCE}\",\"base_path\":\"${BASE_PATH}\",\"version\":\"${VERSION}\",\"label\":\"${LABEL}\",\"governance_email\":\"${GOVERNANCE_EMAIL}\"}")
 
 echo "API Registry Successfully: $API_REGISTRY_RESPONSE"
