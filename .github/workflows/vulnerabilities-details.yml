@@ -15,7 +15,7 @@ jobs:
       - name: Github Action for API Registry
         uses: PerfAI-Inc/Github-Action-CI-CD@v54.0
         with:
-           perfai-hostname: https://app.apiprivacy.com/
+           perfai-hostname: https://app.apiprivacy.com
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
            openapi_spec: 'https://petstore.swagger.io/v2/swagger.yaml'
