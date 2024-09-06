@@ -2,8 +2,8 @@ name: API Registry
 on:
   push:
     branches: [ "main" ]
-  schedule:
-    # - cron: '*/5 * * * *'
+  # schedule:
+  #    - cron: '*/5 * * * *'
             
 
 jobs:
@@ -18,9 +18,12 @@ jobs:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
-           governance_email: rashid@perfai.ai
-           label: demo
+           openapi_spec: "https://petstore.swagger.io/v2/swagger.yaml"
+           governance_email: "rashid@perfai.ai"
+           label: "demo"
+           version: "0.0.1"
+           source: "sensitive"
+           
            # sarif-result-file: "perfai-results.sarif"
            # sarif-result-file: "vulnerabilities-results.sarif"
 
