@@ -13,17 +13,17 @@ jobs:
       security-events: write
     steps:
       - name: Github Action for API Registry
-        uses: PerfAI-Inc/Github-Action-CI-CD@v22.0
+        uses: PerfAI-Inc/Github-Action-CI-CD@v54.0
         with:
-           perfai-hostname: https://app.apiprivacy.com
+           perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           openapi_spec: 'https://petstore.swagger.io/v2/swagger.yaml'
-           governance_email: 'rashid@perfai.ai'
-           label: 'demo'
-           version: '0.0.3'
-           source: 'sensitive'
-           base_path: 'https://petstore.swagger.io/v2'
+           openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
+           governance_email: rashid@perfai.ai
+           # label: 'demo'
+           # version: '0.0.3'
+           # source: 'sensitive'
+           # base_path: 'https://petstore.swagger.io/v2'
            
            # sarif-result-file: "perfai-results.sarif"
            # sarif-result-file: "vulnerabilities-results.sarif"
