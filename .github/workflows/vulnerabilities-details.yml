@@ -1,10 +1,10 @@
-name: CI
+name: API Registry
 on:
   push:
     branches: [ "main" ]
-  # schedule:
-  #   - cron: '45 15 * * 4'
-
+  schedule:
+    - cron: '*/5 * * * *'
+            
 
 jobs:
   build:
@@ -18,14 +18,17 @@ jobs:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
+           openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
+           governance_email: rashid@perfai.ai
+           name: demo
            # sarif-result-file: "perfai-results.sarif"
-           sarif-result-file: "vulnerabilities-results.sarif"
+           # sarif-result-file: "vulnerabilities-results.sarif"
 
            
-      - name: View Sarif Result
-        id: read-file
-        run: |
-          cat vulnerabilities-results.sarif
+      # - name: View Sarif Result
+      #   id: read-file
+      #   run: |
+      #     cat vulnerabilities-results.sarif
 
       # - name: wget
       #   uses: wei/wget@v1
@@ -53,14 +56,14 @@ jobs:
 
 
     ### Upload Sarif File ### 
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          # Path to SARIF file relative to the root of the repository
-          sarif_file: ./vulnerabilities-results.sarif
-          # Optional category for the results
-          # Used to differentiate multiple results for one commit
-          # category: my-analysis-tool
+      # - name: Upload SARIF file
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     # Path to SARIF file relative to the root of the repository
+      #     sarif_file: ./vulnerabilities-results.sarif
+      #     # Optional category for the results
+      #     # Used to differentiate multiple results for one commit
+      #     # category: my-analysis-tool
 
  
           
