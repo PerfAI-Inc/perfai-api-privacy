@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,api_endpoint:,openapi_spec:,governance_email:,version:,label:,source:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,openapi_spec:,governance_email:,version:,label:,source:" -- -- "$@")
 
      [ $? -eq 0 ] || exit
 
@@ -12,7 +12,6 @@ TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,api_endpoint:,openapi
                --hostname) PERFAI_HOSTNAME="$2"; shift;;
                --username) PERFAI_USERNAME="$2"; shift;;
                --password) PERFAI_PASSWORD="$2"; shift;;
-               --api_endpoint) API_ENDPOINT="$2"; shift;;
                --openapi_spec) OPENAPI_SPEC="$2"; shift;;
                --governance_email) GOVERNANCE_EMAIL="$2"; shift;;
                --label) LABEL="$2"; shift;;
