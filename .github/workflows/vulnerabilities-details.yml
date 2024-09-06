@@ -21,7 +21,7 @@ jobs:
            openapi_spec: 'https://petstore.swagger.io/v2/swagger.yaml'
            governance_email: 'rashid@perfai.ai'
            label: 'demo'
-           version: '0.0.1'
+           version: '0.0.3'
            source: 'sensitive'
            base_path: 'https://petstore.swagger.io/v2'
            
