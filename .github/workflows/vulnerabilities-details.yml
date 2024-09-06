@@ -20,9 +20,7 @@ jobs:
            perfai-password: ${{ secrets.perfai_password }}
            openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
            governance_email: rashid@perfai.ai
-           base_path: https://petstore.swagger.io/v2/swagger.yaml
            label: demo
-           source: sensitive
            # sarif-result-file: "perfai-results.sarif"
            # sarif-result-file: "vulnerabilities-results.sarif"
 
