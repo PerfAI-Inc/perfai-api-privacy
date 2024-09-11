@@ -47,22 +47,22 @@ runs:
   using: "composite"
   steps:
 ### THIS IS 1st SCRIPT (API_REGISTRY.SH) ###  
-    - name: Grant execute permission for api_registry.sh
-      run: chmod +x ${GITHUB_ACTION_PATH}/api_registry.sh
-      shell: bash
+    # - name: Grant execute permission for api_registry.sh
+    #   run: chmod +x ${GITHUB_ACTION_PATH}/api_registry.sh
+    #   shell: bash
       
-    - name: Run api_registry.sh
-      run: |
-        ${GITHUB_ACTION_PATH}/api_registry.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.perfai-openapi_spec }}" --governance_email "${{ inputs.perfai-governance_email }}" --base_path "${{ inputs.perfai-base_path }}"  --version "${{ inputs.perfai-version }}" --label "${{ inputs.perfai-label }}" --source "${{ inputs.perfai-source }}"
-      shell: bash
+    # - name: Run api_registry.sh
+    #   run: |
+    #     ${GITHUB_ACTION_PATH}/api_registry.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --openapi_spec "${{ inputs.perfai-openapi_spec }}" --governance_email "${{ inputs.perfai-governance_email }}" --base_path "${{ inputs.perfai-base_path }}"  --version "${{ inputs.perfai-version }}" --label "${{ inputs.perfai-label }}" --source "${{ inputs.perfai-source }}"
+    #   shell: bash
 
 
 ### THIS IS 2nd SCRIPT (ACTION_RUN.SH) ###
-    # - name: Grant execute permission for action-run.sh
-    #   run: chmod +x ${GITHUB_ACTION_PATH}/action-run.sh
-    #   shell: bash
+    - name: Grant execute permission for action-run.sh
+      run: chmod +x ${GITHUB_ACTION_PATH}/action-run.sh
+      shell: bash
       
-    # - name: Run action-run.sh
-    #   run: |
-    #     ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --outputfile "${{ inputs.sarif-result-file }}"
-    #   shell: bash
+    - name: Run action-run.sh
+      run: |
+        ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --outputfile "${{ inputs.sarif-result-file }}"
+      shell: bash
