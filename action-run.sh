@@ -12,7 +12,6 @@ do
         --hostname) PERFAI_HOSTNAME="$2"; shift;;
         --username) PERFAI_USERNAME="$2"; shift;;
         --password) PERFAI_PASSWORD="$2"; shift;;
-        --outputfile) OUTPUT_FILENAME="$2"; shift;;
         --) shift ;;
     esac
     shift;
@@ -73,68 +72,6 @@ RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/a
 echo "Run Response: $RUN_RESPONSE"
 echo " "
 
-
-# Fetch vulnerability data from the API
-# vulnerabilities=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/issues?app_id=66c5b89600fbf372c2f1f117&page=1&pageSize=1" \
-# --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '{
-#   "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-#   "version": "2.1.0",
-#   "runs": [
-#     {
-#       "tool": {
-#         "driver": {
-#           "name": "Custom Vulnerability Scanner",
-#           "version": "1.0",
-#           "informationUri": "https://example.com/tool-info",
-#           "rules": [
-#             {
-#               "id": "API-DP9-2024",
-#               "name": "Bot Data Modification",
-#               "shortDescription": {
-#                 "text": "This rule identifies API endpoints vulnerable to bot data modification."
-#               },
-#               "fullDescription": {
-#                 "text": "Bot Data Modification vulnerabilities occur when an API endpoint allows unauthorized data modification by automated systems."
-#               },
-#               "helpUri": "https://example.com/rules/API-DP9-2024",
-#               "defaultConfiguration": {
-#                 "level": "error"
-#               }
-#             }
-#           ]
-#         }
-#       },
-#       "results": [
-#         {
-#           "ruleId": "API-DP9-2024",
-#           "level": "error",
-#           "message": {
-#             "text": "Vulnerability Report: Bot Data Modification on POST /user Endpoint."
-#           },
-#           "locations": [
-#             {
-#               "physicalLocation": {
-#                 "artifactLocation": {
-#                   "uri": "/user",
-#                   "uriBaseId": "%SRCROOT%"
-#                 },
-#                 "region": {
-#                   "startLine": 1
-#                 }
-#               }
-#             }
-#           ]
-#         }
-#       ]
-#     }
-#   ]
-# }')
-
-# # Print the SARIF formatted vulnerabilities
-# echo "Vulnerabilities SARIF: $vulnerabilities"
-
-# # Write SARIF data to the specified output file
-# echo "$vulnerabilities" >> "$GITHUB_WORKSPACE/$OUTPUT_FILENAME"
 
 
 
