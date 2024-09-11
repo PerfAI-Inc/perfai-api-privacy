@@ -1,5 +1,5 @@
-name: GitHub Action for API Registry
-description: Action RUN 
+name: GitHub Action for Action RUN
+description: API Privacy Action RUN 
 author: PerfAI, Inc.
 branding:
   icon: "package"
