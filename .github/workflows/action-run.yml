@@ -13,7 +13,7 @@ jobs:
       security-events: write
     steps:
       - name: Github Action for Action-Run
-        uses: PerfAI-Inc/Github-Action-CI-CD@v1.1.1
+        uses: PerfAI-Inc/Github-Action-CI-CD@v1.2.1
         with:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
