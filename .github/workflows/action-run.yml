@@ -1,4 +1,4 @@
-name: API Registry
+name: Action-Run
 on:
   push:
     branches: [ "main" ]
@@ -12,87 +12,13 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - name: Github Action for API Registry
-        uses: PerfAI-Inc/Github-Action-CI-CD@v56.0
+      - name: Github Action for Action-Run
+        uses: PerfAI-Inc/Github-Action-CI-CD@v1.1.1
         with:
            perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
            
-           
-           
-           
-           # openapi_spec: https://petstore.swagger.io/v2/swagger.yaml
-           # governance_email: rashid@perfai.ai
-           # label: 'demo'
-           # version: '0.0.3'
-           # source: 'sensitive'
-           # base_path: 'https://petstore.swagger.io/v2'
-           
-           # sarif-result-file: "perfai-results.sarif"
-           # sarif-result-file: "vulnerabilities-results.sarif"
-
-           
-      # - name: View Sarif Result
-      #   id: read-file
-      #   run: |
-      #     cat vulnerabilities-results.sarif
-
-      # - name: wget
-      #   uses: wei/wget@v1
-      #   with:           
-      #      args: -O simple-example.sarif https://raw.githubusercontent.com/microsoft/sarif-tutorials/main/samples/1-Introduction/simple-example.sarif  
-           
-    ### Upload Sarif File ### 
-      # - name: upload sarif file to repository
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif-file: ./perfai-results.sarif
-
-      # - name: Run npm install
-      #   run: npm install
-
-      # - name: Run ESLint
-      #   run: node_modules/.bin/eslint build docs lib script spec-main -f node_modules/@microsoft/eslint-formatter-sarif/sarif.js -o perfai-results.sarif || true
-           
-      # - name: Validate SARIF file
-      #   run: |
-      #     if ! jq . perfai-results.sarif > /dev/null 2>&1; then
-      #       echo "SARIF file is not valid."
-      #       exit 1
-      #     fi
-
-
-    ### Upload Sarif File ### 
-      # - name: Upload SARIF file
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     # Path to SARIF file relative to the root of the repository
-      #     sarif_file: ./vulnerabilities-results.sarif
-      #     # Optional category for the results
-      #     # Used to differentiate multiple results for one commit
-      #     # category: my-analysis-tool
-
- 
-          
-    # ### Email Alert Notifcation ###  
-    #   - name: Send mail
-    #     if: failure()
-    #     uses: dawidd6/action-send-mail@v3
-    #     with:
-    #        server_address: smtp.gmail.com
-    #        server_port: 465
-    #        username: ${{ secrets.EMAIL_USERNAME }}
-    #        password: ${{ secrets.EMAIL_PASSWORD }}
-    #        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}  
-    #        body: Build job of ${{ github.workflow }} https://github.com/PerfAI-Inc/Github-Action-CI-CD/security/code-scanning          
-    #        to: rashid@perfai.ai
-    #        from: Github Action 
-    #        convert_markdown: true
-    #        attachments: attachments.zip,git.diff,./dist/static/*.js   
-
-
-
 
 
           
