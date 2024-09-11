@@ -1,5 +1,5 @@
-name: GitHub Action for API Privacy
-description: API Privacy Action RUN 
+name: GitHub Action for Action Run
+description: API Privacy and API Governance
 author: PerfAI, Inc.
 branding:
   icon: "package"
