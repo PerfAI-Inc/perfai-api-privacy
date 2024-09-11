@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,outputfile:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -123,7 +123,7 @@ done
 
 # #!/bin/bash
 
-# TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,outputfile:" -- -- "$@")
+# TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:" -- -- "$@")
 
 # [ $? -eq 0 ] || exit
 
