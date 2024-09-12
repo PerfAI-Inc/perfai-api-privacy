@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "username:,password:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -9,7 +9,6 @@ eval set -- "$TEMP"
 while [ $# -gt 0 ]
 do
     case "$1" in
-        --hostname) PERFAI_HOSTNAME="$2"; shift;;
         --username) PERFAI_USERNAME="$2"; shift;;
         --password) PERFAI_PASSWORD="$2"; shift;;
         --) shift ;;
@@ -32,32 +31,7 @@ ACCESS_TOKEN=$(echo $TOKEN_RESPONSE | jq -r '.id_token')
 echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
-### Step 2: Retrieve Single App IDs and API Name ###
-APP_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/all?page=1&pageSize=5" \
---header "Authorization: Bearer $ACCESS_TOKEN")
-
-APP_IDS=$(echo $APP_RESPONSE | jq -r '.data[] | ._id')
-LABEL_NAME=$(echo $APP_RESPONSE | jq -r '.data[] | .label')
-API_NAME=$(echo $APP_RESPONSE | jq -r '.data[] | .latest_run.api_name')
-
-echo API Name is: "$API_NAME"
-echo " "
-echo label Name is: "$LABEL_NAME"
-echo " "
-echo App ID is: "$APP_IDS"
-
-echo " "
-
-### Step 3: Scan Run with each App IDs ###
-if [ -z "$APP_IDS" ]; then
-    echo "No App IDs found."
-    exit 1
-fi
-
-for APP_ID in $APP_IDS; do
-    # echo "Running scan for App ID: $APP_ID"
-
-### Step 4: Print the Result or Response ###    
+# ### Step 4: Print the Result or Response ###    
 RUN=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/sensitive-data-service/apps/schedule-run?app_id=${APP_ID}" \
     --header "Authorization: Bearer $ACCESS_TOKEN" \
     --header "Content-Type: application/json")
