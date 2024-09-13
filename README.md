@@ -25,11 +25,11 @@ Follow these steps to get started with PerfAI:
 
 By following these steps, you'll be ready to start using PerfAI for API privacy API Registry and AI Running.
 
-For Authentication
+**For Authentication**
 
 ![image](https://github.com/user-attachments/assets/b7911e67-ea30-4180-8765-0d2ac7cc9f54)
 
-For Authorization
+**For Authorization**
 
 ![image](https://github.com/user-attachments/assets/15b417c9-9cb1-4e96-aa2c-cd8af73f0960)
 
@@ -38,7 +38,6 @@ For Authorization
 
 ### Step 7:  
 - Click on Emails **Enter Email-Id**.
-- You can add multiple Email-Id
 
 ### Step 8: 
 - Click and Seletct on **Run Schedule**.
@@ -46,8 +45,7 @@ For Authorization
 ### Step 9: 
 - Click on **Add API**.
 
-
-Here is sample API Registry
+**Here is sample API Registry**
 
 ![image](https://github.com/user-attachments/assets/1d6b5e7f-5354-4c06-b121-dba66a935003)
 
