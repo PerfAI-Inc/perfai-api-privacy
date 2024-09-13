@@ -1,4 +1,4 @@
-name: Action-Run
+name: AI Running
 on:
   push:
     branches: [ "main" ]
@@ -13,12 +13,12 @@ jobs:
       security-events: write
     steps:
       - name: Github Action for Action-Run
-        uses: PerfAI-Inc/Github-Action-CI-CD@v1.2.1
+        uses: PerfAI-Inc/Github-Action-CI-CD@v1.2.2
         with:
-           perfai-hostname: https://app.apiprivacy.com/
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           
+           perfai-catalog-id: "66e1a3ddf39d139dca94ee13"
+           perfai-wait-for-completion: "true"
 
 
           
