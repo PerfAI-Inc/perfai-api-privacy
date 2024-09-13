@@ -50,7 +50,12 @@ By following these steps, you'll be ready to start using PerfAI for API privacy 
 ![image](https://github.com/user-attachments/assets/1d6b5e7f-5354-4c06-b121-dba66a935003)
 
 -----------------------------------------------------------------------------------------------------------------------------
-## AI Running
+### How to get catalog Id
+
+- Click on **catalog_id.sh**.
+
+----------------------------------------------------------------------------------------------------------------------------
+### AI Running
 
 ### `perfai-username`
 **Required**: The PerfAI Username with which the AI Running will be executed.
