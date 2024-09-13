@@ -13,11 +13,11 @@ jobs:
       security-events: write
     steps:
       - name: Github Action for Action-Run
-        uses: PerfAI-Inc/Github-Action-CI-CD@v1.2.2
+        uses: PerfAI-Inc/Github-Action-CI-CD@v1.2.3
         with:
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           perfai-catalog-id: "66e1a3ddf39d139dca94ee13"
+           perfai-catalog-id: "66e46275438622956cfc5f7e"
            perfai-wait-for-completion: "true"
 
 
