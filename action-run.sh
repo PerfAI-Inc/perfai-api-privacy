@@ -80,19 +80,19 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
         # Wait for 30 seconds before checking the status
         sleep 60
         
-        # # Check the status of the AI Running
-        # STATUS_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/sensitive-data-service/apps/run-status?run_id=${RUN_ID}" \
-        #     --header "Authorization: Bearer $ACCESS_TOKEN")
+        # Check the status of the AI Running
+        STATUS_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/sensitive-data-service/apps/run-status?run_id=${RUN_ID}" \
+            --header "Authorization: Bearer $ACCESS_TOKEN")
 
-        # STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
-        # MESSAGE=$(echo "$STATUS_RESPONSE" | jq -r '.message')
+        STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
+        MESSAGE=$(echo "$STATUS_RESPONSE" | jq -r '.message')
 
-        # echo "AI Running Status: $STATUS - $MESSAGE"
+        echo "AI Running Status: $STATUS - $MESSAGE"
 
-        # if [[ "$STATUS" == "failed" ]]; then
-        #     echo "Error: AI Running failed for Run ID $RUN_ID"
-        #     exit 1
-        # fi
+        if [[ "$STATUS" == "failed" ]]; then
+            echo "Error: AI Running failed for Run ID $RUN_ID"
+            exit 1
+        fi
     done
 
     echo "AI Running for Catalog ID $CATALOG_ID has completed successfully!"
