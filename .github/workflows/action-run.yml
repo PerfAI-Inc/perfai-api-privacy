@@ -17,7 +17,7 @@ jobs:
         with:
            perfai-username: ${{ secrets.perfai_username }}
            perfai-password: ${{ secrets.perfai_password }}
-           perfai-catalog-id: "66e46275438622956cfc5f7e"
+           perfai-catalog-id: "66e4644e438622956cfd3e3b"
            perfai-wait-for-completion: "true"
 
 
