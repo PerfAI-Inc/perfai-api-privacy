@@ -1,4 +1,4 @@
-name: GitHub Action for Action Run
+name: GitHub Action for AI Running
 description: API Privacy and API Governance
 author: PerfAI, Inc.
 branding:
@@ -6,16 +6,18 @@ branding:
   color: "gray-dark"
       
 inputs:
-  perfai-hostname:
-    description: 'Hostname of API-Privacy'
-    required: true
   perfai-username:
     description: 'Username of API-Privacy'
     required: true
   perfai-password:
     description: 'Password of API-Privacy'
     required: true
-
+  perfai-catalog-id:
+    description: 'Catalog Id need to Provide'
+    required: true
+  perfai-wait-for-completion:
+    description: 'True or False'
+    required: true   
 
 runs:
   using: "composite"
@@ -26,5 +28,5 @@ runs:
       
     - name: Run action-run.sh
       run: |
-        ${GITHUB_ACTION_PATH}/action-run.sh --hostname "${{ inputs.perfai-hostname }}" --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}"
+        ${GITHUB_ACTION_PATH}/action-run.sh --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --catalog-id "${{ inputs.perfai-catalog-id }}" --wait-for-completion "${{ inputs.perfai-wait-for-completion }}"
       shell: bash
