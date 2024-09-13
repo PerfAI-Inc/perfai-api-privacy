@@ -55,7 +55,8 @@ By following these steps, you'll be ready to start using PerfAI for API privacy 
 ### `perfai-username`
 **Required**: The PerfAI Username with which the Action Run will be executed.
 
-**Note**: You can create a new user https://app.apiprivacy.com/#sign-up.
+**Note**: You can create a new user <a href="https://app.apiprivacy.com/#sign-up" target="_blank">https://app.apiprivacy.com</a>
+
 
 | **Default value**   | `""` |
 |----------------|-------|
