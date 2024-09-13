@@ -33,18 +33,19 @@ For Authorization
 
 ![image](https://github.com/user-attachments/assets/15b417c9-9cb1-4e96-aa2c-cd8af73f0960)
 
-Step #6
-Click On Label "Enter Any-Name"
+### Step 6:  
+- Click on Label **Enter Name**.
 
-Step #7
-Click on Emails (Receive run notifications) "Enter Email-Id"
-You can add multiple Email-Id
+### Step 7:  
+- Click on Emails **Enter Email-Id**.
+- You can add multiple Email-Id
 
-Step #8
-Click on "Run Schedule"
+### Step 8: 
+- Click and Seletct on **Run Schedule**.
 
-Step #9
-Click on "Add API"
+### Step 9: 
+- Click on **Add API**.
+
 
 Here is sample API Registry
 
