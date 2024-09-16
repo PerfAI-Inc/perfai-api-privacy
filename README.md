@@ -3,14 +3,11 @@
 
 ## How to get Catalog Id
 
-### Step 1: Sign Up for a Free Account
-- Visit [PerfAI Sign Up](https://apiprivacy.com) to create a free account.
-
-### Step 2: Log in to API Privacy
+### Step 1: Log in to API Privacy
 - Log in at [API Privacy Dashboard](https://app.apiprivacy.com).
 - After logging in, click on **APIs** on the dashboard.
 
-### Step 3: Select Any APIs
+### Step 2: Select Any APIs
 - Click on horizontal three dotted lines then Copy the **Catalog_id**.
   
  ![image](https://github.com/user-attachments/assets/41552daf-8135-4861-8d40-820aa6780062)
