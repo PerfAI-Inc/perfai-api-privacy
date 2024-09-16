@@ -1,4 +1,7 @@
-## How to get catalog Id
+### Getting Start with Github Action 'RUN'
+-------
+
+## How to get Catalog Id
 
 ### Step 1: Sign Up for a Free Account
 - Visit [PerfAI Sign Up](https://apiprivacy.com) to create a free account.
