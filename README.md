@@ -1,61 +1,19 @@
-## Getting Started
-
-Follow these steps to get started with PerfAI:
+## How to get catalog Id
 
 ### Step 1: Sign Up for a Free Account
 - Visit [PerfAI Sign Up](https://apiprivacy.com) to create a free account.
 
 ### Step 2: Log in to API Privacy
 - Log in at [API Privacy Dashboard](https://app.apiprivacy.com).
-- After logging in, click on **Add API** on the dashboard to register your API.
+- After logging in, click on **APIs** on the dashboard.
 
-### Step 3: Add a Sample OpenAPI Specification
-- Copy and paste the following sample OpenAPI Specification URL: https://petstore.swagger.io/v2/swagger.yaml
+### Step 3: Select Any APIs
+- Click on horizontal three dotted lines then Copy the **Catalog_id**.
   
-### Step 4: Set API Server/Base Path
-- Click on **API Server/Base Path**.
-- Copy and paste the sample base path URL: https://petstore.swagger.io/v2
-
-
-### Step 5: Add Credentials to Vault
-- Click on **Vault**.
-- Then, click on **Add Credentials** to securely store your API credentials.
-
----
-
-By following these steps, you'll be ready to start using PerfAI for API privacy API Registry and AI Running.
-
-**For Authentication**
-
-![image](https://github.com/user-attachments/assets/b7911e67-ea30-4180-8765-0d2ac7cc9f54)
-
-**For Authorization**
-
-![image](https://github.com/user-attachments/assets/15b417c9-9cb1-4e96-aa2c-cd8af73f0960)
-
-### Step 6:  
-- Click on Label **Enter Name**.
-
-### Step 7:  
-- Click on Emails **Enter Email-Id**.
-
-### Step 8: 
-- Click and Seletct on **Run Schedule**.
-
-### Step 9: 
-- Click on **Add API**.
-
-**Here is sample API Registry**
-
-![image](https://github.com/user-attachments/assets/1d6b5e7f-5354-4c06-b121-dba66a935003)
-
------------------------------------------------------------------------------------------------------------------------------
-### How to get catalog Id
-
-- Click on **catalog_id.sh**.
+ ![image](https://github.com/user-attachments/assets/41552daf-8135-4861-8d40-820aa6780062)
 
 ----------------------------------------------------------------------------------------------------------------------------
-### AI Running
+### Action Run
 
 ### `perfai-username`
 **Required**: The PerfAI Username with which the AI Running will be executed.
