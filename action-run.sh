@@ -49,16 +49,23 @@ echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
 ### Step 2: Trigger the AI Running ###
+COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+
 RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple" \
 --header "Content-Type: application/json" \
 --header "Authorization: Bearer $ACCESS_TOKEN" \
 --data-raw "{
     \"catalog_id\": \"${CATALOG_ID}\",
+    \"COMMIT_ID\": \"${GITHUB_SHA}\",
+    \"GITHUB_USER\": \"${GITHUB_ACTOR}\",
+    \"REPO_NAME\": \"${GITHUB_REPOSITORY}\",
+    \"COMMIT_URL\": \"${COMMIT_URL}\",
     \"services\": [\"sensitive\"]
 }")
 
 #echo "Run Response: $RUN_RESPONSE"
 
+### RUN_ID Prints ###
 RUN_ID=$(echo "$RUN_RESPONSE" | jq -r '.run_id')
 
 if [ -z "$RUN_ID" ]; then
@@ -100,3 +107,8 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
 else
     echo "AI Running triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
 fi
+echo " "
+echo "GitHub Username: $GITHUB_ACTOR"
+echo "Repository: $GITHUB_REPOSITORY"
+echo "Commit ID: $GITHUB_SHA"
+echo "Commit URL: $COMMIT_URL"
