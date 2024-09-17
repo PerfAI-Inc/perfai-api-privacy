@@ -97,7 +97,7 @@ Warning: Never store your secrets in the repository.
 
 ## How to store Username and Password in Repository Action secrets
 
-### Step 1: Go to Your Repository where you will save username and password
+### Go to Your Repository where you will save username and password
 - Click on **Settings**
 - Click on **Secrets and Variables** Under Security
 - Click on **Actions**
