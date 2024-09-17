@@ -104,13 +104,12 @@ Warning: Never store your secrets in the repository.
 - Click on **New Repository secrets**
 
 Below is the example screenshot showing to add add it
+
 ![image](https://github.com/user-attachments/assets/ea216940-6135-4f63-9a0d-9af020b7add4)
 
 ![image](https://github.com/user-attachments/assets/027d6a5c-21af-4fc2-add6-412ef60fa3fe)
 
 
-### Step 2: Select APIs
-- Click on horizontal three dotted lines then Copy the **Catalog_id**.
 
 
 
