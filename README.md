@@ -86,7 +86,7 @@ jobs:
           # The API Privacy Password with which the AI Running will be executed
           perfai-password: ${{ secrets.perfai_password}}
           # The catalog id need to provide 
-          perfai-catalog-id: "26xxxxxxxxxx75"
+          perfai-catalog-id: "123456789"
           # The name of the project for security scan
           perfai-wait-for-completio: "true"
            
@@ -94,6 +94,24 @@ The API Privacy credentials are read from github secrets.
 
 Warning: Never store your secrets in the repository.
 ```
+
+## How to store Username and Password in Repository Action secrets
+
+### Step 1: Go to Your Repository where you will save username and password
+- Click on **Settings**
+- Click on **Secrets and Variables** Under Security
+- Click on **Actions**
+- Click on **New Repository secrets**
+
+Below is the example screenshot showing to add add it
+![image](https://github.com/user-attachments/assets/ea216940-6135-4f63-9a0d-9af020b7add4)
+
+![image](https://github.com/user-attachments/assets/027d6a5c-21af-4fc2-add6-412ef60fa3fe)
+
+
+### Step 2: Select APIs
+- Click on horizontal three dotted lines then Copy the **Catalog_id**.
+
 
 
           
