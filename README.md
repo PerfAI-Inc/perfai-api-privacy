@@ -103,7 +103,7 @@ Warning: Never store your secrets in the repository.
 - Click on **Actions**
 - Click on **New Repository secrets**
 
-Below is the example screenshot showing to add add it
+Below is the example screenshot that shows how to do it
 
 ![image](https://github.com/user-attachments/assets/a4136e16-615e-4900-9d62-01ea5a3e2dfb)
 
