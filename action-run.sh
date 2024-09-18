@@ -2,9 +2,10 @@
 
 # Default values
 WAIT_FOR_COMPLETION=false
+FAIL_ON_NEW_LEAKS= false
 
 # Parse the input arguments
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:," -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -18,6 +19,7 @@ do
         --password) PERFAI_PASSWORD="$2"; shift;;
         --catalog-id) CATALOG_ID="$2"; shift;;
         --wait-for-completion) WAIT_FOR_COMPLETION="$2"; shift;;
+        --fail-on-new-leaks) FAIL_ON_NEW_LEAKS="$2"; shift;;
         --) shift ;;
     esac
     shift;
@@ -53,7 +55,7 @@ COMMIT_ID=${GITHUB_SHA}
 COMMIT_DATE=${Date}
 COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${COMMIT_ID}"
 
-### Step 2: Schedule AI Running ###
+### Step 2: Schedule API Privacy Tests ###
 RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
@@ -87,7 +89,7 @@ fi
 
 ### Step 3: Check the wait-for-completion flag ###
 if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
-    echo "Waiting for AI Running to complete..."
+    echo "Waiting for API Privacy Tests to complete..."
 
     STATUS="in_progress"
 
@@ -96,23 +98,23 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
         # Wait for 60 seconds before checking the status
         sleep 60
         
-        # Check the status of the AI Running
+        # Check the status of the API Privacy Tests
     STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
       --header "Authorization: Bearer $ACCESS_TOKEN")    
 
     STATUS=$(echo "$STATUS_RESPONSE")
 
-    echo "AI Running Status: $STATUS"
+    echo "API Privacy Tests Status: $STATUS"
 
     # If the AI Run fails, exit with an Error
         if [[ "$STATUS" == "failed" ]]; then
-            echo "Error: AI Running failed for Run ID $RUN_ID"
+            echo "Error: API Privacy Tests failed for Run ID $RUN_ID"
             exit 1
         fi
     done
 
     # Once the status is no longer "in_progress", assume it completed
-   echo "AI Running for Catalog ID $CATALOG_ID has completed successfully!"
+   echo "API Privacy Tests for API ID $CATALOG_ID has completed successfully!"
  else
-   echo "AI Running triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
+   echo "API Privacy Tests triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
  fi
