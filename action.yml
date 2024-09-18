@@ -1,5 +1,5 @@
-name: GitHub Action for AI Running
-description: API Privacy and API Governance
+name: PerfAI APIPrivacy Test
+description: PerfAI API Privacy Test as part of your GitHub Actions workflow.
 author: PerfAI, Inc.
 branding:
   icon: "package"
@@ -7,17 +7,25 @@ branding:
       
 inputs:
   perfai-username:
-    description: 'Username of API-Privacy'
+    description: 'API Privacy Username'
     required: true
   perfai-password:
-    description: 'Password of API-Privacy'
+    description: 'API Privacy Password'
     required: true
-  perfai-catalog-id:
-    description: 'Catalog Id need to Provide'
+  perfai-api-id:
+    description: 'API Id generated for the API in API Privacy'
+    required: true
+  perfai-api-name:
+    description: 'API name/label'
     required: true
   perfai-wait-for-completion:
-    description: 'True or False'
-    required: true   
+    description: 'To wait till the tests gets completed, set to `true` '
+    required: false
+    default: "false"
+  perfai-fail-on-new-leaks:
+    description: 'To fail the build on new leaks introduced with this commit, set to `true`.'
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -28,5 +36,5 @@ runs:
       
     - name: Run action-run.sh
       run: |
-        ${GITHUB_ACTION_PATH}/action-run.sh --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --catalog-id "${{ inputs.perfai-catalog-id }}" --wait-for-completion "${{ inputs.perfai-wait-for-completion }}"
+        ${GITHUB_ACTION_PATH}/action-run.sh --username "${{ inputs.perfai-username }}" --password "${{ inputs.perfai-password }}" --catalog-id "${{ inputs.perfai-api-id }}" --wait-for-completion "${{ inputs.perfai-wait-for-completion }} --fail-on-new-leaks "${{ inputs.perfai-fail-on-new-leaks}}"
       shell: bash
