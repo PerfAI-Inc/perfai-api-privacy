@@ -64,7 +64,7 @@ Warning: Never store your secrets in the repository.
  ![image](https://github.com/user-attachments/assets/41552daf-8135-4861-8d40-820aa6780062)
 
 ----------------------------------------------------------------------------------------------------------------------------
-### Action Run
+### Inputs
 
 ### `perfai-username`
 **Required**: API Privacy Username.
