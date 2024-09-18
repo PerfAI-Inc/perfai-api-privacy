@@ -48,33 +48,42 @@ fi
 echo "Access Token is: $ACCESS_TOKEN"
 echo " "
 
-### Step 2: Trigger the AI Running ###
-COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+# Get commit information
+COMMIT_ID=${GITHUB_SHA}
+COMMIT_DATE=${Date}
+COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${COMMIT_ID}"
 
-RUN_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple" \
---header "Content-Type: application/json" \
---header "Authorization: Bearer $ACCESS_TOKEN" \
---data-raw "{
+### Step 2: Schedule AI Running ###
+RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -d "{
     \"catalog_id\": \"${CATALOG_ID}\",
-    \"COMMIT_ID\": \"${GITHUB_SHA}\",
-    \"GITHUB_USER\": \"${GITHUB_ACTOR}\",
-    \"REPO_NAME\": \"${GITHUB_REPOSITORY}\",
-    \"COMMIT_URL\": \"${COMMIT_URL}\",
-    \"services\": [\"sensitive\"]
-}")
+    \"services\": [\"sensitive\"],
+    \"buildDetails\": {
+        \"commitId\": \"${COMMIT_ID}\",
+        \"commitUrl\": \"${COMMIT_URL}\",
+        \"commitUserName\": \"${GITHUB_ACTOR}\",
+        \"commitDate\": \"${COMMIT_DATE}\",
+        \"repoName\": \"${GITHUB_REPOSITORY}\"
+    }
+  }"
+)
 
 #echo "Run Response: $RUN_RESPONSE"
 
 ### RUN_ID Prints ###
-RUN_ID=$(echo "$RUN_RESPONSE" | jq -r '.run_id')
+RUN_ID=$(echo "$RUN_RESPONSE" | jq -r '.run_ids.sensitive')
+
+echo " "
+echo "Run Response: $RUN_RESPONSE"
+echo " "
+echo "Run ID is: $RUN_ID"
 
 if [ -z "$RUN_ID" ]; then
-    echo "Error: Failed to start AI Running for Catalog ID $CATALOG_ID"
-    exit 1
+  echo "Error: Run ID not found in the response"
+  exit 1
 fi
-
-echo "AI Running started for Catalog ID $CATALOG_ID"
-echo " "
 
 ### Step 3: Check the wait-for-completion flag ###
 if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
@@ -84,31 +93,26 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
 
     ### Step 4: Poll the status of the AI run until completion ###
     while [[ "$STATUS" == "in_progress" ]]; do
-        # Wait for 30 seconds before checking the status
+        # Wait for 60 seconds before checking the status
         sleep 60
         
         # Check the status of the AI Running
-        STATUS_RESPONSE=$(curl -s --location --request POST "https://api.perfai.ai/api/v1/sensitive-data-service/apps/run-status?run_id=${RUN_ID}" \
-            --header "Authorization: Bearer $ACCESS_TOKEN")
+    STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
+      --header "Authorization: Bearer $ACCESS_TOKEN")    
 
-        STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
-        MESSAGE=$(echo "$STATUS_RESPONSE" | jq -r '.message')
+    STATUS=$(echo "$STATUS_RESPONSE")
 
-        echo "AI Running Status: $STATUS - $MESSAGE"
+    echo "AI Running Status: $STATUS"
 
+    # If the AI Run fails, exit with an Error
         if [[ "$STATUS" == "failed" ]]; then
             echo "Error: AI Running failed for Run ID $RUN_ID"
             exit 1
         fi
     done
 
-    echo "AI Running for Catalog ID $CATALOG_ID has completed successfully!"
-    # echo "Privacy Test for $CATALOG_ID in Progress. This may take several minutes to complete."
-else
-    echo "AI Running triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
-fi
-echo " "
-echo "GitHub Username: $GITHUB_ACTOR"
-echo "Repository: $GITHUB_REPOSITORY"
-echo "Commit ID: $GITHUB_SHA"
-echo "Commit URL: $COMMIT_URL"
+    # Once the status is no longer "in_progress", assume it completed
+   echo "AI Running for Catalog ID $CATALOG_ID has completed successfully!"
+ else
+   echo "AI Running triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
+ fi
