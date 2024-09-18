@@ -59,7 +59,7 @@ Warning: Never store your secrets in the repository.
 - After logging in, click on **APIs** on the dashboard.
 
 ### Step 2: Select APIs
-- Click on horizontal three dotted lines then Copy the **Catalog_id**.
+- Click on horizontal three dotted lines then Copy the **API Id**.
   
  ![image](https://github.com/user-attachments/assets/41552daf-8135-4861-8d40-820aa6780062)
 
