@@ -5,7 +5,7 @@ If you want to learn more, contact us at <support@perfai.ai>.
 
 # Example usage
 ```
-# This is a starter workflow to help you get with API-Privacy AI Running
+# This is a starter workflow to help you get with API-Privacy Tests
 
 name: PerfAI
 
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-       - name: API Privacy AI Running
+       - name: API Privacy Test
          uses: perfai-inc/perfai-ai-running@v1.0
          with:
           # The API Privacy username with which the AI Running will be executed
@@ -52,7 +52,7 @@ The API Privacy credentials are read from github secrets.
 Warning: Never store your secrets in the repository.
 
 
-## How to get Catalog Id
+## How to get API Id
 
 ### Step 1: Log in to API Privacy
 - Log in at [API Privacy Dashboard](https://app.apiprivacy.com).
@@ -67,22 +67,25 @@ Warning: Never store your secrets in the repository.
 ### Action Run
 
 ### `perfai-username`
-**Required**: The PerfAI Username with which the AI Running will be executed.
-
-**Note**: You can create a new user <a href="https://app.apiprivacy.com/#sign-up" target="_blank">https://app.apiprivacy.com</a>
-
+**Required**: API Privacy Username.
 
 | **Default value**   | `""` |
 |----------------|-------|
 
 ### `perfai-password`
-**Required**: The PerfAI password with which the AI Running will be executed
+**Required**: API Privacy Password
 
 | **Default value**   | `""` |
 |----------------|-------|
 
-### `perfai-catalog-id`
-**Required**: The catalog ID of the API Registry.
+### `perfai-api-id`
+**Required**: API Id generated for the API in API Privacy.
+
+| **Default value**   | `""` |
+|----------------|-------|
+
+### `perfai-api-name`
+**Required**: API Name / Label.
 
 | **Default value**   | `""` |
 |----------------|-------|
@@ -93,4 +96,8 @@ Warning: Never store your secrets in the repository.
 | **Default value**   | `"false"` |
 |----------------|-------|
 
+### `perfai-fail-on-new-leaks`
+**Optional**: Set to `true` or `false`.
 
+| **Default value**   | `"false"` |
+|----------------|-------|
