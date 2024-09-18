@@ -1,4 +1,5 @@
-### Getting Start with Github Action 'RUN'
+# PerfAI API Privacy GitHub Action
+
 -------
 
 ## How to get Catalog Id
