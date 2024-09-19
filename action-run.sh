@@ -102,9 +102,18 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
       --header "Authorization: Bearer $ACCESS_TOKEN")    
 
-    STATUS=$(echo "$STATUS_RESPONSE")
+    echo $STATUS_RESPONSE
+   
+    STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
 
-     If the run completes and fail-on-new-leaks is enabled
+    if  [ "$STATUS" == "COMPLETED"  ]; then
+
+    NEW_ISSUES=$(echo "$STATUS_RESPONSE" | jq -r '.newIssues')
+    # NEW_ISSUES=1
+
+    echo "AI Running Status: $STATUS_RESPONSE"
+
+    # If the run completes and fail-on-new-leaks is enabled
       if [[ "$STATUS" != "in_progress" ]]; then
         if [[ "$FAIL_ON_NEW_LEAKS" == "true" && "$NEW_ISSUES" -gt 0 ]]; then
           echo "Build failed with new issues. New issue count: $NEW_ISSUES"
@@ -114,16 +123,16 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
         fi
       fi
     fi 
+
+   # echo "AI Running Status: $STATUS"
+
+    # If the AI run fails, exit with an error
+    if [[ "$STATUS" == "failed" ]]; then
+      echo "Error: API Privacy Tests failed for Run ID $RUN_ID"
+      exit 1
+    fi
+  done
     
-    echo "API Privacy Tests Status: $STATUS"
-
-    # If the AI Run fails, exit with an Error
-        if [[ "$STATUS" == "failed" ]]; then
-            echo "Error: API Privacy Tests failed for Run ID $RUN_ID"
-            exit 1
-        fi
-    done
-
     # Once the status is no longer "in_progress", assume it completed
    echo "API Privacy Tests for API ID $CATALOG_ID has completed successfully!"
  else
