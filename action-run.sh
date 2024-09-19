@@ -92,10 +92,10 @@ fi
 if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     echo "Waiting for API Privacy Tests to complete..."
 
-    #STATUS="PROCESSING"
+    STATUS="PROCESSING"
 
     ### Step 4: Poll the status of the AI run until completion ###
-    while [[ "$STATUS" == "COMPLETED" ]]; do
+    while [[ "$STATUS" == "PROCESSING" ]]; do
         
         # Check the status of the API Privacy Tests
     STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
