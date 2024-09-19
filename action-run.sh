@@ -2,7 +2,7 @@
 
 # Default values
 WAIT_FOR_COMPLETION=false
-FAIL_ON_NEW_LEAKS= false
+FAIL_ON_NEW_LEAKS=false
 
 # Parse the input arguments
 TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:," -- -- "$@")
