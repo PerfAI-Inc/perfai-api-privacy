@@ -52,7 +52,7 @@ echo " "
 
 # Get commit information
 COMMIT_ID=${GITHUB_SHA}
-COMMIT_DATE=${Date}
+COMMIT_DATE=$(date "+%F")
 COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${COMMIT_ID}"
 
 ### Step 2: Schedule API Privacy Tests ###
@@ -77,6 +77,7 @@ RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/ap
 ### RUN_ID Prints ###
 RUN_ID=$(echo "$RUN_RESPONSE" | jq -r '.run_ids.sensitive')
 
+# Output Run Response ###
 echo " "
 echo "Run Response: $RUN_RESPONSE"
 echo " "
@@ -96,7 +97,6 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     ### Step 4: Poll the status of the AI run until completion ###
     while [[ "$STATUS" == "in_progress" ]]; do
         # Wait for 60 seconds before checking the status
-        sleep 60
         
         # Check the status of the API Privacy Tests
     STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
@@ -104,6 +104,17 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
 
     STATUS=$(echo "$STATUS_RESPONSE")
 
+     If the run completes and fail-on-new-leaks is enabled
+      if [[ "$STATUS" != "in_progress" ]]; then
+        if [[ "$FAIL_ON_NEW_LEAKS" == "true" && "$NEW_ISSUES" -gt 0 ]]; then
+          echo "Build failed with new issues. New issue count: $NEW_ISSUES"
+          exit 1
+        elif [[ "$NEW_ISSUES" -eq 0 ]]; then
+          echo "No new issues detected. Build passed."
+        fi
+      fi
+    fi 
+    
     echo "API Privacy Tests Status: $STATUS"
 
     # If the AI Run fails, exit with an Error
