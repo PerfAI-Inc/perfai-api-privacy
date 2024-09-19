@@ -121,7 +121,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
           echo "No new issues detected. Build passed."
         fi
       fi
-    fi 
+    #fi 
 
    # echo "AI Running Status: $STATUS"
 
