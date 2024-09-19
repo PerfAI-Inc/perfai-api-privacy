@@ -46,7 +46,7 @@ jobs:
           # API Id generated for the API in API Privacy
           perfai-api-id: "66ebcabcc737e29472660cfe"
           # To wait till the tests gets completed, set to `true` 
-          perfai-wait-for-completion: "false"
+          perfai-wait-for-completion: "true"
           # To fail the build on new leaks introduced with this commit, set to `true`.
           perfai-fail-on-new-leaks: "false"
   ```         
@@ -54,38 +54,23 @@ The API Privacy credentials are read from github secrets.
 
 Warning: Never store your secrets in the repository.
 
-
-## How to get API Id
-
-### Step 1: Log in to API Privacy
-- Log in at [API Privacy Dashboard](https://app.apiprivacy.com).
-- After logging in, click on **APIs** on the dashboard.
-
-### Step 2: Select APIs
-- Click on horizontal three dotted lines then Copy the **API Id**.
-  
- ![image](https://github.com/user-attachments/assets/41552daf-8135-4861-8d40-820aa6780062)
-
 ----------------------------------------------------------------------------------------------------------------------------
 ### Inputs
 
 ### `perfai-username`
 **Required**: API Privacy Username.
 
-| **Default value**   | `""` |
-|----------------|-------|
-
 ### `perfai-password`
 **Required**: API Privacy Password
-
-| **Default value**   | `""` |
-|----------------|-------|
 
 ### `perfai-api-id`
 **Required**: API Id generated for the API in API Privacy.
 
-| **Default value**   | `""` |
-|----------------|-------|
+ 1. After login into API Privacy. 
+
+ 2. Click on **APIs** on the dashboard.
+ 
+ 3. Click on horizontal three dotted lines then Copy the **API Id**.
 
 ### `perfai-api-name`
 **Required**: API Name / Label.
@@ -96,7 +81,7 @@ Warning: Never store your secrets in the repository.
 ### `perfai-wait-for-completion`
 **Optional**: Set to `true` or `false`.
 
-| **Default value**   | `"false"` |
+| **Default value**   | `"true"` |
 |----------------|-------|
 
 ### `perfai-fail-on-new-leaks`
