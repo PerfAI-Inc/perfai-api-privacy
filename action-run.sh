@@ -101,7 +101,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     STATUS_RESPONSE=$(curl -s --location --request GET "https://api.perfai.ai/api/v1/sensitive-data-service/apps/get-run-status?run_id=$RUN_ID" \
       --header "Authorization: Bearer $ACCESS_TOKEN")    
 
-    echo $STATUS_RESPONSE
+    #echo $STATUS_RESPONSE
    
     STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
 
