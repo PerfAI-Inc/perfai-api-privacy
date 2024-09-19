@@ -136,4 +136,5 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
    echo "API Privacy Tests for API ID $CATALOG_ID has completed successfully!"
  else
    echo "API Privacy Tests triggered. Run ID: $RUN_ID. Exiting without waiting for completion."
+   exit 1  
  fi
