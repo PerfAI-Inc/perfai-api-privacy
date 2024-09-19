@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default values
-WAIT_FOR_COMPLETION=false
+WAIT_FOR_COMPLETION=true
 FAIL_ON_NEW_LEAKS=false
 
 # Parse the input arguments
