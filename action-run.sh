@@ -92,7 +92,7 @@ fi
 if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     echo "Waiting for API Privacy Tests to complete..."
 
-    STATUS="COMPLETED"
+    #STATUS="PROCESSING"
 
     ### Step 4: Poll the status of the AI run until completion ###
     while [[ "$STATUS" == "COMPLETED" ]]; do
@@ -105,7 +105,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
    
     STATUS=$(echo "$STATUS_RESPONSE" | jq -r '.status')
 
-    #if  [ "$STATUS" == "COMPLETED"  ]; then
+    if  [ "$STATUS" == "COMPLETED"  ]; then
 
     NEW_ISSUES=$(echo "$STATUS_RESPONSE" | jq -r '.newIssues')
     # NEW_ISSUES=1
@@ -121,7 +121,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
           echo "No new issues detected. Build passed."
         fi
       fi
-    #fi 
+    fi 
 
    # echo "AI Running Status: $STATUS"
 
