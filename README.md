@@ -7,7 +7,7 @@ If you want to learn more, contact us at <support@perfai.ai>.
 ```
 # This is a starter workflow to help you get with API-Privacy Tests
 
-name: PerfAI
+name: API Privacy Test
 
 # Controls when the workflow will run
 on:
@@ -31,12 +31,11 @@ jobs:
   Trigger_Privacy_AI_Run:
     permissions:
       security-events: write     # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read              # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status 
     runs-on: ubuntu-latest
 
     steps:
-       - name: API Privacy Test
-         uses: perfai-inc/perfai-ai-running@v0.0.1
+       - name: PerfAI APIPrivacy Test
+         uses: PerfAI-Inc/perfai-api-privacy@v0.0.1
          with:
           # The API Privacy username with which the AI Running will be executed
           perfai-username: ${{ secrets.perfai_username }}
