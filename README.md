@@ -36,16 +36,20 @@ jobs:
 
     steps:
        - name: API Privacy Test
-         uses: perfai-inc/perfai-ai-running@v1.0
+         uses: perfai-inc/perfai-ai-running@v0.0.1
          with:
           # The API Privacy username with which the AI Running will be executed
           perfai-username: ${{ secrets.perfai_username }}
           # The API Privacy Password with which the AI Running will be executed
           perfai-password: ${{ secrets.perfai_password}}
-          # The catalog id need to provide 
-          perfai-catalog-id: "123456789"
-          # The name of the project for security scan
-          perfai-wait-for-completio: "true"
+          # API name/label
+          perfai-api-name: "demo"
+          # API Id generated for the API in API Privacy
+          perfai-api-id: "66ebcabcc737e29472660cfe"
+          # To wait till the tests gets completed, set to `true` 
+          perfai-wait-for-completion: "false"
+          # To fail the build on new leaks introduced with this commit, set to `true`.
+          perfai-fail-on-new-leaks: "false"
   ```         
 The API Privacy credentials are read from github secrets.
 
