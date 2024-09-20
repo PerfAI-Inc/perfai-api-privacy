@@ -107,7 +107,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
 
     if  [ "$STATUS" == "COMPLETED"  ]; then
 
-    NEW_ISSUES=$(echo "$STATUS_RESPONSE" | jq -r '.newIssues')
+    NEW_ISSUES=$(echo "$STATUS_RESPONSE" | jq -r '.newIssues[]')
     # NEW_ISSUES=1
 
     echo "AI Running Status: $STATUS_RESPONSE"
