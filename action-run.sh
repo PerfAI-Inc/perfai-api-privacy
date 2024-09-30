@@ -108,19 +108,20 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     if  [ "$STATUS" == "COMPLETED"  ]; then
 
     NEW_ISSUES=$(echo "$STATUS_RESPONSE" | jq -r '.newIssues[]')
+    NEW_ISSUES_DETECTED=$(echo "$STATUS_RESPONSE" | jq -r '.newIssuesDetected')
     # NEW_ISSUES=1
 
     echo "AI Running Status: $STATUS_RESPONSE"
 
     # If the run completes and fail-on-new-leaks is enabled
-      if [[ "$STATUS" != "in_progress" ]]; then
-        if [[ "$FAIL_ON_NEW_LEAKS" == "true" && "$NEW_ISSUES" -gt 0 ]]; then
-          echo "Build failed with new issues. New issue count: $NEW_ISSUES"
-          exit 1
-        elif [[ "$NEW_ISSUES" -eq 0 ]]; then
+      #if [[ "$STATUS" != "in_progress" ]]; then
+        #if [[ "$FAIL_ON_NEW_LEAKS" == "true" && "$NEW_ISSUES" -gt 0 ]]; then
+        if [ "$NEW_ISSUES_DETECTED" = false ]; then
           echo "No new issues detected. Build passed."
+          else
+            echo "Build failed with new issues. New issue: $NEW_ISSUES"
+            exit 1
         fi
-      fi
     fi 
 
    # echo "AI Running Status: $STATUS"
