@@ -111,7 +111,8 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     NEW_ISSUES_DETECTED=$(echo "$STATUS_RESPONSE" | jq -r '.newIssuesDetected')
     # NEW_ISSUES=1
 
-    echo "AI Running Status: $STATUS_RESPONSE"
+    # echo "AI Running Status: $STATUS_RESPONSE"
+    echo "$STATUS_RESPONSE" | jq
 
     # If the run completes and fail-on-new-leaks is enabled
       #if [[ "$STATUS" != "in_progress" ]]; then
