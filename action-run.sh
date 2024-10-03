@@ -83,9 +83,9 @@ echo "Run Response: $RUN_RESPONSE"
 echo " "
 echo "Run ID is: $RUN_ID"
 
-if [ -z "$RUN_ID" ]; then
-  echo "Error: Run ID not found in the response"
-  exit 1
+if [ "$ACCESS_TOKEN" == "null" ]; then
+    echo "Error: Could not retrieve access token"
+    exit 1
 fi
 
 ### Step 3: Check the wait-for-completion flag ###
