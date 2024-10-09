@@ -116,7 +116,8 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
     # If the run completes and fail-on-new-leaks is enabled
       #if [[ "$STATUS" != "in_progress" ]]; then
         #if [[ "$FAIL_ON_NEW_LEAKS" == "true" && "$NEW_ISSUES" -gt 0 ]]; then
-        if [ "$NEW_ISSUES_DETECTED" = false ]; then
+        #if [ "$NEW_ISSUES_DETECTED" = false ]; then
+        if [ "$NEW_ISSUES" == "" ] ||  [ "$NEW_ISSUES" == null ]; then
           echo "No new issues detected. Build passed."
           else
             echo "Build failed with new issues. New issue: $NEW_ISSUES"
@@ -127,7 +128,7 @@ if [ "$WAIT_FOR_COMPLETION" == "true" ]; then
    # echo "AI Running Status: $STATUS"
 
     # If the AI run fails, exit with an error
-    if [[ "$STATUS" == "failed" ]]; then
+    if [[ "$STATUS" == "FAILED" ]]; then
       echo "Error: API Privacy Tests failed for Run ID $RUN_ID"
       exit 1
     fi
