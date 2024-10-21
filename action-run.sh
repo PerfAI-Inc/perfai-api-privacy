@@ -3,9 +3,10 @@
 # Default values
 WAIT_FOR_COMPLETION=true
 FAIL_ON_NEW_LEAKS=false
+BUILD_MODE=ok
 
 # Parse the input arguments
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:,buildMode:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -20,6 +21,7 @@ do
         --catalog-id) CATALOG_ID="$2"; shift;;
         --wait-for-completion) WAIT_FOR_COMPLETION="$2"; shift;;
         --fail-on-new-leaks) FAIL_ON_NEW_LEAKS="$2"; shift;;
+        --buildMode) BUILD_MODE="$2"; shift;;
         --) shift ;;
     esac
     shift;
@@ -62,6 +64,7 @@ RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/ap
   -d "{
     \"catalog_id\": \"${CATALOG_ID}\",
     \"services\": [\"sensitive\"],
+    \"buildMode\": \"${BUILD_MODE}\",
     \"buildDetails\": {
         \"commitId\": \"${COMMIT_ID}\",
         \"commitUrl\": \"${COMMIT_URL}\",
