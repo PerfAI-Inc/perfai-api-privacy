@@ -6,7 +6,7 @@ FAIL_ON_NEW_LEAKS=false
 BUILD_MODE=ok
 
 # Parse the input arguments
-TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:,buildMode:" -- -- "$@")
+TEMP=$(getopt -n "$0" -a -l "hostname:,username:,password:,catalog-id:,wait-for-completion:,fail-on-new-leaks:" -- -- "$@")
 
 [ $? -eq 0 ] || exit
 
@@ -21,7 +21,6 @@ do
         --catalog-id) CATALOG_ID="$2"; shift;;
         --wait-for-completion) WAIT_FOR_COMPLETION="$2"; shift;;
         --fail-on-new-leaks) FAIL_ON_NEW_LEAKS="$2"; shift;;
-        --buildMode) BUILD_MODE="$2"; shift;;
         --) shift ;;
     esac
     shift;
