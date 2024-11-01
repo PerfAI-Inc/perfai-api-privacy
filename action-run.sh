@@ -55,6 +55,10 @@ echo " "
 COMMIT_ID=${GITHUB_SHA}
 COMMIT_DATE=$(date "+%F")
 COMMIT_URL="https://github.com/${GITHUB_REPOSITORY}/commit/${COMMIT_ID}"
+COMMENT="${{ github.event.head_commit.message }}"  # Fetch commit message
+
+# Print commit information to confirm
+echo "Commit Message: $COMMENT"
 
 ### Step 2: Schedule API Privacy Tests ###
 RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/api-catalog/apps/schedule-run-multiple \
@@ -69,7 +73,8 @@ RUN_RESPONSE=$(curl -s --location --request POST https://api.perfai.ai/api/v1/ap
         \"commitUrl\": \"${COMMIT_URL}\",
         \"commitUserName\": \"${GITHUB_ACTOR}\",
         \"commitDate\": \"${COMMIT_DATE}\",
-        \"repoName\": \"${GITHUB_REPOSITORY}\"
+        \"repoName\": \"${GITHUB_REPOSITORY}\",
+        \"comment\": \"${COMMENT}\"
     }
   }"
 )
